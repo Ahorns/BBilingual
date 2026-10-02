@@ -131,7 +131,8 @@ def system_prompt():
               "original right next to your translation. Use the standard terminology of the field and "
               "keep it consistent with the earlier lines you are shown. Keep code, file paths, "
               "identifiers, acronyms and technical terms in English, and keep markdown markers such "
-              "as ** and backticks. The input is numbered lines like `[1] text`. Reply with one "
+              "as ** and backticks. Write math symbols and Greek letters as plain Unicode "
+              "characters, never as LaTeX. The input is numbered lines like `[1] text`. Reply with one "
               "translated line per input line, using the same `[n]` numbers, and nothing else." % lang)
     extra = env("BBILINGUAL_PROMPT_EXTRA")
     return prompt + (" " + extra if extra else "")

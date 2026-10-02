@@ -143,6 +143,7 @@ class OpenAICompatible(unittest.TestCase):
         self.assertEqual(seen["body"]["model"], "test-model")
         self.assertNotIn("temperature", seen["body"])
         self.assertIn("Simplified Chinese", seen["body"]["messages"][0]["content"])
+        self.assertIn("never as LaTeX", seen["body"]["messages"][0]["content"])
 
     def test_no_key_sends_no_authorization_header(self):
         env = dict(self.env, BBILINGUAL_API_KEY="")
