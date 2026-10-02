@@ -1,0 +1,9 @@
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "openai",
+    "BBILINGUAL_API_BASE": "https://api.openai.com/v1",
+    "BBILINGUAL_MODEL": "YOUR_MODEL_NAME",
+    "BBILINGUAL_TARGET": "zh-CN",
+    "BBILINGUAL_STYLE": "gray"
+  }
+}

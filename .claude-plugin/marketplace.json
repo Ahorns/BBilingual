@@ -1,0 +1,16 @@
+{
+  "name": "bbilingual",
+  "owner": {
+    "name": "BBilingual contributors"
+  },
+  "plugins": [
+    {
+      "name": "bbilingual",
+      "source": "./",
+      "description": "Show a translation under every English assistant message in Claude Code (display-only)."
+    }
+  ],
+  "metadata": {
+    "description": "BBilingual: translation under every English message in Claude Code, display-only."
+  }
+}

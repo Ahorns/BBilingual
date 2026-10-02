@@ -1,0 +1,7 @@
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "command",
+    "BBILINGUAL_CMD": "python3 /path/to/BBilingual/examples/custom_backend.py",
+    "BBILINGUAL_TARGET": "fr"
+  }
+}

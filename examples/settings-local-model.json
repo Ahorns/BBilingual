@@ -1,0 +1,8 @@
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "openai",
+    "BBILINGUAL_API_BASE": "http://localhost:11434/v1",
+    "BBILINGUAL_MODEL": "YOUR_LOCAL_MODEL",
+    "BBILINGUAL_TARGET": "ja"
+  }
+}

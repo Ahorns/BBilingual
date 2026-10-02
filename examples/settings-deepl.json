@@ -1,0 +1,6 @@
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "deepl",
+    "BBILINGUAL_TARGET": "de"
+  }
+}
