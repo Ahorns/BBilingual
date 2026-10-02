@@ -1,4 +1,10 @@
+**English** | [简体中文](README.zh-CN.md)
+
 # BBilingual
+
+[![tests](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml/badge.svg)](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml)
+[![License: MIT](https://img.shields.io/github/license/Ahorns/BBilingual)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/Ahorns/BBilingual?style=social)](https://github.com/Ahorns/BBilingual/stargazers)
 
 **Work with Claude in English for the best results, and read everything in your own language.**
 
@@ -336,6 +342,16 @@ python3 -m unittest discover -s tests -v     # about 25 seconds, no network
 The hook is one file, [`scripts/bilingual.py`](scripts/bilingual.py), using only the standard
 library. [`docs/how-it-works.md`](docs/how-it-works.md) explains the design and what was learned
 about Claude Code's rendering. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
+
+## Star history
+
+<a href="https://star-history.com/#Ahorns/BBilingual&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Ahorns/BBilingual&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Ahorns/BBilingual&type=Date" />
+    <img alt="Star history chart" src="https://api.star-history.com/svg?repos=Ahorns/BBilingual&type=Date" />
+  </picture>
+</a>
 
 ## License
 
