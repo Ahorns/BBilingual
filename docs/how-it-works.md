@@ -81,6 +81,12 @@ BBilingual removes spaces next to CJK characters, except next to markdown marker
 needs the space to stay bold). Inserting spaces after Chinese punctuation, as an earlier version did,
 made things worse.
 
+Spaces that are left, between two Latin words or in `87.0 %`, are turned into no-break spaces
+(U+00A0), except inside code spans (so a copied command still works). Claude Code does not break at a
+no-break space, so the line is cut at the full width like any text without spaces. Checked in Claude
+Code with a 177-column Chinese line in a 175-column terminal: with ordinary spaces the line broke
+after 75 columns, with no-break spaces it filled the line.
+
 ## 6. What does not work in Claude Code (tested)
 
 | Idea | Result |
@@ -88,6 +94,7 @@ made things worse.
 | `<br>`, `<br/>`, `<br />` inside a table cell | drawn literally |
 | `&#10;`, U+2028, U+2029, vertical tab, U+0085 inside a table cell | drawn literally or ignored; the cell stays one line |
 | zero-width space, word joiner, soft hyphen as a wrap point | not a break point; wrapping happens at ASCII spaces only |
+| no-break space (U+00A0) instead of a space | works: not a break point, drawn as a space |
 | colour codes inside table cells | Claude Code mis-draws the table: a wide one is printed as raw `\| a \| b \|` text, a narrow one has its bars shifted. Tables are therefore left uncoloured |
 | a long CJK table cell with no spaces | fine: the cell is cut at the column width and the table stays a table |
 | a table wider than the terminal | Claude Code switches to a vertical layout (`header: value` per row), which is readable |

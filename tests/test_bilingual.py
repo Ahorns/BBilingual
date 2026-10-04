@@ -76,7 +76,7 @@ class FakeOpenAI(http.server.BaseHTTPRequestHandler):
 class Basics(unittest.TestCase):
     def test_translation_is_indented_under_a_bullet(self):
         out = hook("• Local fix idea: use pruning itself as the stabiliser.\n")
-        self.assertEqual(out.splitlines()[1], "  【译】Local fix idea: use pruning itself as the stabiliser.")
+        self.assertEqual(out.splitlines()[1], "  【译】Local\u00a0fix\u00a0idea:\u00a0use\u00a0pruning\u00a0itself\u00a0as\u00a0the\u00a0stabiliser.")
 
     def test_disable_switch(self):
         self.assertIsNone(hook("hello\n", {"BBILINGUAL_DISABLE": "1"}))
@@ -100,7 +100,7 @@ class Basics(unittest.TestCase):
 
     def test_heading_translation_stays_on_the_heading_line(self):
         out = hook("# A heading here\n\nSome text.\n")
-        self.assertEqual(out.splitlines()[0], "# A heading here / 【译】A heading here")
+        self.assertEqual(out.splitlines()[0], "# A heading here / 【译】A\u00a0heading\u00a0here")
 
 
 class Configuration(unittest.TestCase):
@@ -136,7 +136,7 @@ class OpenAICompatible(unittest.TestCase):
 
     def test_request_shape(self):
         out = hook("Use pruning as a stabiliser.\n", self.env)
-        self.assertEqual(out.splitlines()[1], "译：Use pruning as a stabiliser.")
+        self.assertEqual(out.splitlines()[1], "译：Use\u00a0pruning\u00a0as\u00a0a\u00a0stabiliser.")
         seen = FakeOpenAI.seen[0]
         self.assertEqual(seen["path"], "/v1/chat/completions")
         self.assertEqual(seen["auth"], "Bearer k123")
@@ -178,7 +178,7 @@ class OpenAICompatible(unittest.TestCase):
             FakeOpenAI.echo_first = False
         self.assertEqual(len(FakeOpenAI.seen), 2)
         self.assertIn("repeated the original text", FakeOpenAI.seen[1]["body"]["messages"][1]["content"])
-        self.assertEqual(out.splitlines()[1], "译：Line one here.")
+        self.assertEqual(out.splitlines()[1], "译：Line\u00a0one\u00a0here.")
 
     def test_temperature_is_sent_only_when_asked(self):
         hook("Warm line.\n", dict(self.env, BBILINGUAL_TEMPERATURE="0"))
@@ -259,14 +259,14 @@ class Tables(unittest.TestCase):
     def test_translated_table_follows_the_original(self):
         out = hook("| Item | Cost |\n|---|---|\n| Fast head | 12.5% |\n\nAfter text here.\n")
         self.assertEqual(out.splitlines(), ["| Item | Cost |", "|---|---|", "| Fast head | 12.5% |", ""]
-                         + self.ZH_TABLE + ["", "After text here.", "【译】After text here."])
+                         + self.ZH_TABLE + ["", "After text here.", "【译】After\u00a0text\u00a0here."])
 
     def test_table_arriving_in_several_batches(self):
         mid = uuid.uuid4().hex
         self.assertIsNone(hook("| Item | Cost |\n|---|---|\n", mid=mid, index=0))
         self.assertIsNone(hook("| Fast head | 12.5% |\n", mid=mid, index=1))
         out = hook("\nNext paragraph.\n", mid=mid, index=2)
-        self.assertEqual(out.splitlines(), [""] + self.ZH_TABLE + ["", "Next paragraph.", "【译】Next paragraph."])
+        self.assertEqual(out.splitlines(), [""] + self.ZH_TABLE + ["", "Next paragraph.", "【译】Next\u00a0paragraph."])
 
     def test_table_at_the_end_of_a_message(self):
         mid = uuid.uuid4().hex
@@ -305,7 +305,7 @@ class StyleAndSpacing(unittest.TestCase):
 
     def test_style_is_reapplied_after_a_bold_span(self):
         out = hook("A styled bold line.\n", command("echo '**粗体** 之后继续'", BBILINGUAL_STYLE="dim"))
-        self.assertEqual(out.splitlines()[1], "**\x1b[2m粗体\x1b[22m**\x1b[2m 之后继续\x1b[22m")
+        self.assertEqual(out.splitlines()[1], "**\x1b[2m粗体\x1b[22m**\x1b[2m\u00a0之后继续\x1b[22m")
 
     def test_spaces_next_to_cjk_are_removed(self):
         out = hook("Some text\n", command("echo 你好， 世界。 再见 OK 吧"))
@@ -313,7 +313,13 @@ class StyleAndSpacing(unittest.TestCase):
 
     def test_space_next_to_a_markdown_marker_is_kept_so_bold_still_closes(self):
         out = hook("Bold line.\n", command("echo '**阶段一，粗调：** 像 VPR 的，规则（“引号”）。完'"))
-        self.assertEqual(out.splitlines()[1], "**阶段一，粗调：** 像VPR的，规则（“引号”）。完")
+        self.assertEqual(out.splitlines()[1], "**阶段一，粗调：**\u00a0像VPR的，规则（“引号”）。完")
+
+    def test_spaces_left_in_a_cjk_line_cannot_break_it_early(self):
+        out = hook("Some text\n", command("echo '与 VPR 的区别在于 fine tuning 和 80.8 % 的 `a b` 值'"))
+        self.assertEqual(out.splitlines()[1],
+                         "与VPR的区别在于fine\u00a0tuning和80.8\u00a0%的\u00a0`a b`\u00a0值")
+        self.assertNotIn(" ", out.splitlines()[1].replace("`a b`", ""))
 
 
 class Logging(unittest.TestCase):

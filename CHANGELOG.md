@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- CJK translations: spaces left inside a line become no-break spaces, so Claude Code no longer breaks the
+  line early before a long chunk (code spans are left alone).
+
 ## 0.2.0 - first public release
 
 - Display-only translation of Claude Code's assistant messages through the `MessageDisplay` hook.

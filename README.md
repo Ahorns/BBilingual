@@ -226,7 +226,8 @@ to a LibreTranslate server.
 
 For Chinese, Japanese and Korean the plugin also removes spaces between CJK characters and Latin
 words or numbers, because Claude Code wraps lines at spaces and a stray space makes a long line break
-early. Lines that are already mostly CJK are not translated again.
+early. Spaces that remain inside a translated line (between two English words, in `87.0 %`) become
+no-break spaces for the same reason. Lines that are already mostly CJK are not translated again.
 
 Use `BBILINGUAL_PROMPT_EXTRA` to steer the translator, for example:
 

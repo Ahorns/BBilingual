@@ -176,7 +176,7 @@ ollama pull YOUR_MODEL            # 选一个模型，见下文
 
 `BBILINGUAL_TARGET` 可以填常见的语言代码（`fr`、`de`、`es`、`pt`、`it`、`ru`、`ar`、`hi`、`vi`、`th`、`id`、`tr`、`nl`、`pl`、`ja`、`ko`、`zh-CN`、`zh-TW`），也可以填你的模型能理解的任何语言名称（例如 `Swedish`）。BBilingual 假定 Claude 使用英文输出。
 
-对于中文、日文和韩文，插件还会去掉 CJK 字符与拉丁字母单词或数字之间的空格，因为 Claude Code 是在空格处折行的，多余的一个空格会让一长行过早地断开。已经以 CJK 为主的行不会再次被翻译。
+对于中文、日文和韩文，插件还会去掉 CJK 字符与拉丁字母单词或数字之间的空格，因为 Claude Code 是在空格处折行的，多余的一个空格会让一长行过早地断开。译文行内剩下的空格（两个英文单词之间、`87.0 %` 中）会换成不换行空格，原因相同。已经以 CJK 为主的行不会再次被翻译。
 
 可以用 `BBILINGUAL_PROMPT_EXTRA` 来引导翻译器，例如：
 

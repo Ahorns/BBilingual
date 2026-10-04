@@ -426,6 +426,16 @@ def tighten(text):
     return NEXT_TO_CJK.sub("", text) if TARGET_IS_CJK else text
 
 
+def unbreakable(text):
+    """Claude Code wraps only at ordinary spaces and moves a long chunk whole to the next line, so a
+    space left inside a CJK line (between English words, in "87.0 %") makes an early break. A no-break
+    space keeps the line in one piece. Code spans stay as they are, so copied commands still work."""
+    if not TARGET_IS_CJK:
+        return text
+    return "".join(part if part.startswith("`") else part.replace(" ", "\u00a0")
+                   for part in re.split(r"(`[^`]*`)", text))
+
+
 def usable(en, tr):
     """A translation is shown only if it differs from the English (and is CJK for CJK targets)."""
     return bool(tr) and tr.strip() != en.strip() and (not TARGET_IS_CJK or bool(CJK_RE.search(tr)))
@@ -535,10 +545,10 @@ def render(delta, message_id, final, backend, index=0, session_id=""):
         out_lines.append(line)
         tr = results.get(i)
         if tr and HEADING_RE.match(line):       # headings get a blank line after them: keep it on one line
-            out_lines[-1] = line + " / " + style(tighten(tr))
+            out_lines[-1] = line + " / " + style(unbreakable(tighten(tr)))
         elif tr:
             indent = re.match(r"\s*", line).group(0)
-            out_lines.append(indent + " " * max(0, width - len(indent)) + style(tighten(tr)))
+            out_lines.append(indent + " " * max(0, width - len(indent)) + style(unbreakable(tighten(tr))))
     out_lines += blocks.get(len(items), [])
 
     if env("BBILINGUAL_LOG") == "1":
