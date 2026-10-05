@@ -32,7 +32,7 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
     <td width="33%" valign="top"><b>🔒 默认私密</b><br>配置后端之前不会发送任何内容；用本地模型，内容不会离开你的电脑。</td>
   </tr>
   <tr>
-    <td valign="top"><b>🧩 自带翻译后端</b><br>Ollama、LM Studio、任何兼容 OpenAI 的 API、DeepL，或你自己的命令。</td>
+    <td valign="top"><b>🧩 自带翻译后端</b><br>Ollama、LM Studio、任何兼容 OpenAI 的 API、DeepSeek、DeepL，或你自己的命令。</td>
     <td valign="top"><b>🧱 懂排版</b><br>代码从不翻译；标题、列表、引用和表格保持原有形态。</td>
     <td valign="top"><b>🪶 小巧</b><br>一个 hook 文件，只用 Python 标准库，无需构建。</td>
   </tr>
@@ -114,7 +114,7 @@ BBilingual 翻译的是 Claude 的回答，不是你输入的内容，所以提�
 |---|---|
 | [全部设置](docs/reference.zh-CN.md#配置) | 每一个环境变量 |
 | [本地模型](docs/reference.zh-CN.md#使用本地模型推荐) | 免费、私密、离线 |
-| [翻译后端](docs/reference.zh-CN.md#翻译后端) | 兼容 OpenAI 的 API、DeepL、你自己的命令 |
+| [翻译后端](docs/reference.zh-CN.md#翻译后端) | 兼容 OpenAI 的 API、DeepSeek、DeepL、你自己的命令 |
 | [用自己的语言输入](docs/reference.zh-CN.md#用自己的语言输入) · [语言](docs/reference.zh-CN.md#语言) · [外观](docs/reference.zh-CN.md#外观) · [字体](docs/reference.zh-CN.md#更好看的字体) | 用自己的语言输入、任意目标语言、颜色、字体 |
 | [隐私](docs/reference.zh-CN.md#隐私与安全) · [已知限制](docs/reference.zh-CN.md#已知限制) · [故障排查](docs/reference.zh-CN.md#故障排查) | 发送了什么、哪些不行、该检查什么 |
 | [参与贡献](CONTRIBUTING.md) · [更新日志](CHANGELOG.md) | 测试、添加语言、版本说明 |

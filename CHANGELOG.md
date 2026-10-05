@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.7 - 2026-10-06
+
+- New `deepseek` backend (a preset of the OpenAI protocol): `BBILINGUAL_BACKEND=deepseek` and `DEEPSEEK_API_KEY` are
+  enough. It uses `https://api.deepseek.com`, the model `deepseek-flash`, and switches DeepSeek's thinking off.
+- `BBILINGUAL_EXTRA_BODY`: a JSON object merged into every request of the `openai` and `deepseek` backends, for
+  services that need an extra field.
+
 ## 0.3.6 - 2026-10-05
 
 - A message typed while Claude is still working is translated at once, and a line above the prompt shows its English

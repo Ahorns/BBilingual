@@ -180,6 +180,47 @@ class OpenAICompatible(unittest.TestCase):
         self.assertIn("repeated the original text", FakeOpenAI.seen[1]["body"]["messages"][1]["content"])
         self.assertEqual(out.splitlines()[1], "译：Line\u00a0one\u00a0here.")
 
+    def test_the_deepseek_preset_needs_only_a_key(self):
+        env = dict(BBILINGUAL_BACKEND="deepseek", DEEPSEEK_API_KEY="k456", BBILINGUAL_API_BASE=self.env["BBILINGUAL_API_BASE"])
+        out = hook("Use pruning as a stabiliser.\n", env)
+        self.assertEqual(out.splitlines()[1], "译：Use\u00a0pruning\u00a0as\u00a0a\u00a0stabiliser.")
+        seen = FakeOpenAI.seen[0]
+        self.assertEqual(seen["auth"], "Bearer k456")
+        self.assertEqual(seen["body"]["model"], "deepseek-flash")
+        self.assertEqual(seen["body"]["thinking"], {"type": "disabled"})
+
+    def test_everything_the_preset_fills_in_can_be_overridden(self):
+        env = dict(self.env, BBILINGUAL_BACKEND="deepseek", DEEPSEEK_API_KEY="from-the-preset",
+                   BBILINGUAL_MODEL="deepseek-v4-pro", BBILINGUAL_EXTRA_BODY='{"thinking": {"type": "enabled"}}')
+        hook("Override the preset.\n", env)
+        seen = FakeOpenAI.seen[0]
+        self.assertEqual(seen["auth"], "Bearer k123")                  # BBILINGUAL_API_KEY wins over DEEPSEEK_API_KEY
+        self.assertEqual(seen["body"]["model"], "deepseek-v4-pro")
+        self.assertEqual(seen["body"]["thinking"], {"type": "enabled"})
+
+    def test_the_deepseek_preset_points_at_deepseek(self):
+        sys.path.insert(0, SCRIPTS)
+        import bilingual
+        self.assertEqual(bilingual.PRESETS["deepseek"]["base"], "https://api.deepseek.com")
+
+    def test_deepseek_without_a_key_explains_what_is_missing(self):
+        out = hook("Hello.\n", {"BBILINGUAL_BACKEND": "deepseek"}, session="deepseek-no-key")
+        self.assertIn("DEEPSEEK_API_KEY is not set", out)
+
+    def test_extra_body_fields_are_merged_into_the_request(self):
+        env = dict(self.env, BBILINGUAL_EXTRA_BODY='{"thinking": {"type": "disabled"}, "model": "ignored"}')
+        hook("A line for a thinking model.\n", env)
+        body = FakeOpenAI.seen[0]["body"]
+        self.assertEqual(body["thinking"], {"type": "disabled"})
+        self.assertEqual(body["model"], "test-model")                  # the extra fields cannot replace the model
+        self.assertEqual(body["messages"][0]["role"], "system")
+
+    def test_extra_body_that_is_not_a_json_object_is_reported(self):
+        for bad in ("{oops", "[1, 2]"):
+            out = hook("Hello.\n", dict(self.env, BBILINGUAL_EXTRA_BODY=bad), session="bad-extra-" + str(len(bad)))
+            self.assertIn("BBILINGUAL_EXTRA_BODY is not a JSON object", out)
+        self.assertEqual(FakeOpenAI.seen, [])
+
     def test_temperature_is_sent_only_when_asked(self):
         hook("Warm line.\n", dict(self.env, BBILINGUAL_TEMPERATURE="0"))
         self.assertEqual(FakeOpenAI.seen[0]["body"]["temperature"], 0.0)

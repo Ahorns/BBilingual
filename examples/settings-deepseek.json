@@ -1,0 +1,6 @@
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "deepseek",
+    "BBILINGUAL_TARGET": "zh-CN"
+  }
+}

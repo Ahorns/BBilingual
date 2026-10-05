@@ -44,14 +44,15 @@ claude --plugin-dir /path/to/BBilingual
 
 | 变量 | 含义 | 默认值 |
 |---|---|---|
-| `BBILINGUAL_BACKEND` | `openai`、`deepl` 或 `command` | 未设置：插件什么也不做 |
+| `BBILINGUAL_BACKEND` | `openai`、`deepseek`、`deepl` 或 `command` | 未设置：插件什么也不做 |
 | `BBILINGUAL_TARGET` | 目标语言：语言代码（`fr`、`ja`、`zh-CN`、`zh-TW`、`pt` 等）或语言名称 | `zh-CN` |
-| `BBILINGUAL_MODEL` | 模型名称 | `openai` 后端必填 |
+| `BBILINGUAL_MODEL` | 模型名称 | `openai` 后端必填；`deepseek` 有默认值 |
 | `BBILINGUAL_API_BASE` | 聊天 API 的基础 URL | `https://api.openai.com/v1` |
-| `BBILINGUAL_API_KEY` | API 密钥（本地服务可不填；DeepL 也会读取 `DEEPL_API_KEY`） | 无 |
+| `BBILINGUAL_API_KEY` | API 密钥（本地服务可不填；DeepL 也会读取 `DEEPL_API_KEY`，DeepSeek 读取 `DEEPSEEK_API_KEY`） | 无 |
 | `BBILINGUAL_CMD` | `command` 后端要运行的命令 | `command` 后端必填 |
 | `BBILINGUAL_PROMPT_EXTRA` | 给模型的额外指令：领域、术语表、语气 | 无 |
 | `BBILINGUAL_TEMPERATURE` | 仅在设置时才发送（有些模型不接受默认值以外的值） | 不发送 |
+| `BBILINGUAL_EXTRA_BODY` | 合并进每个聊天请求的 JSON 对象，用于需要额外字段的服务，例如 `{"thinking": {"type": "disabled"}}`。它不能替换模型和消息 | 无 |
 | `BBILINGUAL_STYLE` | 译文的颜色：`dim`、`italic`、`gray`、`cyan`、`green`、`yellow` | 普通 |
 | `BBILINGUAL_INPUT` | [输入翻译](#用自己的语言输入)的初始值：`on`、`confirm` 或 `off`（`/bbinput` 会覆盖它） | `off` |
 | `BBILINGUAL_LOG` | 设为 `1` 会在本地记录英文与译文对照（见[隐私](#隐私与安全)） | 关闭 |
@@ -108,6 +109,7 @@ ollama pull YOUR_MODEL            # 选一个模型，见下文
 | OpenAI | `https://api.openai.com/v1` |
 | OpenRouter | `https://openrouter.ai/api/v1` |
 | Poe | `https://api.poe.com/v1` |
+| DeepSeek | `https://api.deepseek.com`（或使用 [`deepseek`](#deepseek) 预设） |
 | Ollama（本地） | `http://localhost:11434/v1` |
 | LM Studio（本地） | `http://localhost:1234/v1` |
 | vLLM、llama.cpp server 等 | 该服务的 `/v1` 地址 |
@@ -115,6 +117,10 @@ ollama pull YOUR_MODEL            # 选一个模型，见下文
 上表中的基础 URL 是各服务文档中的默认值。该协议已用 Poe 和一个本地模拟服务测试过；其他服务使用相同的协议，但请以它们自己的文档为准。
 
 请选择小而快的模型：每一批文字都要等翻译完成才会显示。模型名称请查看对应服务自己的模型列表。现成的设置示例见 [`examples/`](../examples)。
+
+### `deepseek`
+
+DeepSeek API 的预设：设置 `BBILINGUAL_BACKEND=deepseek` 和 `DEEPSEEK_API_KEY`（或 `BBILINGUAL_API_KEY`）就够了，不需要别的。它使用 `https://api.deepseek.com` 和模型 `deepseek-flash`，并且关闭思考模式：DeepSeek 的模型默认会先思考再回答，这会让翻译变慢并多用 token。你设置的 `BBILINGUAL_MODEL`、`BBILINGUAL_API_BASE` 和 `BBILINGUAL_EXTRA_BODY` 仍然优先。模型名称会变化，请查看 DeepSeek 的文档。你的文字会发送到 DeepSeek 的服务器，适用它自己的条款。现成的设置：[`examples/settings-deepseek.json`](../examples/settings-deepseek.json)。
 
 ### `deepl`
 

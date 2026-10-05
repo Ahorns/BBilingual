@@ -34,7 +34,7 @@ still thinks, writes and remembers in English.
     <td width="33%" valign="top"><b>🔒 Private by default</b><br>Nothing is sent until you set a backend. With a local model nothing leaves your machine.</td>
   </tr>
   <tr>
-    <td valign="top"><b>🧩 Bring your own backend</b><br>Ollama, LM Studio, any OpenAI-compatible API, DeepL, or your own command.</td>
+    <td valign="top"><b>🧩 Bring your own backend</b><br>Ollama, LM Studio, any OpenAI-compatible API, DeepSeek, DeepL, or your own command.</td>
     <td valign="top"><b>🧱 Layout-aware</b><br>Code is never translated. Headings, bullets, quotes and tables keep their shape.</td>
     <td valign="top"><b>🪶 Tiny</b><br>One hook file, Python standard library only, nothing to build.</td>
   </tr>
@@ -126,7 +126,7 @@ as it would without the plugin. More in [how it works](docs/how-it-works.md).
 |---|---|
 | [All settings](docs/reference.md#configure) | every environment variable |
 | [Local models](docs/reference.md#use-a-local-model-recommended) | free, private and offline |
-| [Backends](docs/reference.md#backends) | OpenAI-compatible APIs, DeepL, your own command |
+| [Backends](docs/reference.md#backends) | OpenAI-compatible APIs, DeepSeek, DeepL, your own command |
 | [Write in your own language](docs/reference.md#write-in-your-own-language) · [Languages](docs/reference.md#languages) · [Appearance](docs/reference.md#appearance) · [Fonts](docs/reference.md#fonts-for-a-better-look) | typing in your language, any target language, colours, fonts |
 | [Privacy](docs/reference.md#privacy-and-security) · [Limitations](docs/reference.md#limitations) · [Troubleshooting](docs/reference.md#troubleshooting) | what is sent, what does not work, what to check |
 | [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) | tests, adding a language, release notes |

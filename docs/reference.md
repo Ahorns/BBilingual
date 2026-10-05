@@ -51,14 +51,15 @@ manager instead. Start a new `claude` after changing settings; running sessions 
 
 | Variable | Meaning | Default |
 |---|---|---|
-| `BBILINGUAL_BACKEND` | `openai`, `deepl` or `command` | not set: the plugin does nothing |
+| `BBILINGUAL_BACKEND` | `openai`, `deepseek`, `deepl` or `command` | not set: the plugin does nothing |
 | `BBILINGUAL_TARGET` | Target language: a code (`fr`, `ja`, `zh-CN`, `zh-TW`, `pt`, ...) or a name | `zh-CN` |
-| `BBILINGUAL_MODEL` | Model name | needed for `openai` |
+| `BBILINGUAL_MODEL` | Model name | needed for `openai`; `deepseek` has a default |
 | `BBILINGUAL_API_BASE` | Base URL of the chat API | `https://api.openai.com/v1` |
-| `BBILINGUAL_API_KEY` | API key (optional for local servers; DeepL also reads `DEEPL_API_KEY`) | none |
+| `BBILINGUAL_API_KEY` | API key (optional for local servers; DeepL also reads `DEEPL_API_KEY` and DeepSeek `DEEPSEEK_API_KEY`) | none |
 | `BBILINGUAL_CMD` | Command for the `command` backend | needed for `command` |
 | `BBILINGUAL_PROMPT_EXTRA` | Extra instructions for the model: domain, glossary, tone | none |
 | `BBILINGUAL_TEMPERATURE` | Sent only if set (some models reject anything but their default) | not sent |
+| `BBILINGUAL_EXTRA_BODY` | A JSON object merged into every chat request, for services that need an extra field, for example `{"thinking": {"type": "disabled"}}`. It cannot replace the model or the messages | none |
 | `BBILINGUAL_STYLE` | Colour for the translated text: `dim`, `italic`, `gray`, `cyan`, `green`, `yellow` | plain |
 | `BBILINGUAL_INPUT` | Starting value of [input translation](#write-in-your-own-language): `on`, `confirm` or `off` (`/bbinput` overrides it) | `off` |
 | `BBILINGUAL_LOG` | `1` records English/translation pairs locally (see [Privacy](#privacy-and-security)) | off |
@@ -127,6 +128,7 @@ sees a few earlier lines of the same message, so terminology stays consistent.
 | OpenAI | `https://api.openai.com/v1` |
 | OpenRouter | `https://openrouter.ai/api/v1` |
 | Poe | `https://api.poe.com/v1` |
+| DeepSeek | `https://api.deepseek.com` (or use the [`deepseek`](#deepseek) preset) |
 | Ollama (local) | `http://localhost:11434/v1` |
 | LM Studio (local) | `http://localhost:1234/v1` |
 | vLLM, llama.cpp server, ... | the server's `/v1` URL |
@@ -136,6 +138,15 @@ against a local stand-in server; the others speak the same protocol but check th
 
 Pick a small, fast model: each batch of text waits for the translation before it appears. Check
 the service's own model list for names. See [`examples/`](../examples) for ready-made settings.
+
+### `deepseek`
+
+A preset for the DeepSeek API: set `BBILINGUAL_BACKEND=deepseek` and `DEEPSEEK_API_KEY` (or `BBILINGUAL_API_KEY`)
+and nothing else. It uses `https://api.deepseek.com` and the model `deepseek-flash`, and switches thinking off:
+DeepSeek's models think before they answer by default, which makes a translation slow and uses more tokens.
+`BBILINGUAL_MODEL`, `BBILINGUAL_API_BASE` and `BBILINGUAL_EXTRA_BODY` still win when you set them. Model names
+change, so check DeepSeek's documentation. Your text goes to DeepSeek's servers, under its terms. Ready-made
+settings: [`examples/settings-deepseek.json`](../examples/settings-deepseek.json).
 
 ### `deepl`
 

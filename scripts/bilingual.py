@@ -10,13 +10,14 @@ If anything goes wrong the hook prints nothing and Claude Code shows the origina
 Nothing happens until a backend is configured (BBILINGUAL_BACKEND). Settings are environment
 variables, so they can live in your shell or in the "env" block of ~/.claude/settings.json:
 
-  BBILINGUAL_BACKEND    openai | deepl | command        (required)
+  BBILINGUAL_BACKEND    openai | deepseek | deepl | command        (required)
   BBILINGUAL_TARGET     target language, a code (fr, ja, zh-CN) or a name   (default zh-CN)
   BBILINGUAL_MODEL      model name                       (openai)
   BBILINGUAL_API_BASE   base URL                         (openai; default https://api.openai.com/v1)
-  BBILINGUAL_API_KEY    API key                          (openai, deepl; optional for local servers)
+  BBILINGUAL_API_KEY    API key                          (openai, deepseek, deepl; optional for local servers)
   BBILINGUAL_CMD        command: text on stdin, translation on stdout   (command)
   BBILINGUAL_PROMPT_EXTRA  extra instructions for the model (domain, glossary, tone)   (openai)
+  BBILINGUAL_EXTRA_BODY    JSON object merged into every chat request, e.g. to switch thinking off   (openai)
   BBILINGUAL_STYLE      colour for the translated text: dim|italic|gray|cyan|green|yellow
   BBILINGUAL_LOG        1 to record English/translation pairs in ~/.cache/bbilingual/log.jsonl
   BBILINGUAL_DISABLE    1 to switch the hook off
@@ -138,15 +139,37 @@ def system_prompt():
     return prompt + (" " + extra if extra else "")
 
 
-def chat_openai(system, user):
-    base = env("BBILINGUAL_API_BASE", "https://api.openai.com/v1").rstrip("/")
-    payload = {"model": env("BBILINGUAL_MODEL"),
-               "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]}
+def extra_body():
+    """The JSON object in BBILINGUAL_EXTRA_BODY (extra request fields some services need), or {}."""
+    raw = env("BBILINGUAL_EXTRA_BODY")
+    value = json.loads(raw) if raw else {}
+    if not isinstance(value, dict):
+        raise ValueError("BBILINGUAL_EXTRA_BODY must be a JSON object")
+    return value
+
+
+# A service that speaks the OpenAI protocol can be a preset: BBILINGUAL_BACKEND=<name> and its key are enough.
+# The preset only fills in what you leave unset: BBILINGUAL_API_BASE, BBILINGUAL_MODEL, BBILINGUAL_API_KEY and
+# BBILINGUAL_EXTRA_BODY all still win.
+PRESETS = {"deepseek": {"base": "https://api.deepseek.com", "model": "deepseek-flash", "key": "DEEPSEEK_API_KEY",
+                        "extra": {"thinking": {"type": "disabled"}}}}   # thinking is on by default there: slow
+
+
+def chat_openai(system, user, preset=None):
+    p = PRESETS.get(preset, {})
+    base = (env("BBILINGUAL_API_BASE") or p.get("base") or "https://api.openai.com/v1").rstrip("/")
+    payload = dict(p.get("extra", {}), **extra_body())
+    payload.update(model=env("BBILINGUAL_MODEL") or p.get("model"),
+                   messages=[{"role": "system", "content": system}, {"role": "user", "content": user}])
     if env("BBILINGUAL_TEMPERATURE"):    # some models reject anything but their default
         payload["temperature"] = float(env("BBILINGUAL_TEMPERATURE"))
-    key = env("BBILINGUAL_API_KEY")
+    key = env("BBILINGUAL_API_KEY") or env(p.get("key", ""))
     resp = http_json(base + "/chat/completions", payload, {"Authorization": "Bearer " + key} if key else {})
     return resp["choices"][0]["message"]["content"].strip()
+
+
+def chat_deepseek(system, user):
+    return chat_openai(system, user, "deepseek")
 
 
 def tr_deepl(text):
@@ -169,7 +192,7 @@ def tr_mock(text):    # for the test suite
     return "【译】" + text
 
 
-LLM_BACKENDS = {"openai": chat_openai}                                       # one request per batch
+LLM_BACKENDS = {"openai": chat_openai, "deepseek": chat_deepseek}            # one request per batch
 LINE_BACKENDS = {"deepl": tr_deepl, "command": tr_command, "mock": tr_mock}   # one request per line
 
 
@@ -179,12 +202,19 @@ def configure():
     if not name:
         return None, "BBILINGUAL_BACKEND is not set"
     if name not in LLM_BACKENDS and name not in LINE_BACKENDS:
-        return None, "unknown backend '%s' (use openai, deepl or command)" % name
+        return None, "unknown backend '%s' (use openai, deepseek, deepl or command)" % name
     needs = {"openai": "BBILINGUAL_MODEL", "command": "BBILINGUAL_CMD"}.get(name)
     if needs and not env(needs):
         return None, "%s is not set" % needs
     if name == "deepl" and not (env("BBILINGUAL_API_KEY") or env("DEEPL_API_KEY")):
         return None, "BBILINGUAL_API_KEY is not set"
+    if name in PRESETS and not (env("BBILINGUAL_API_KEY") or env(PRESETS[name]["key"])):
+        return None, "%s is not set" % PRESETS[name]["key"]
+    if name == "openai" or name in PRESETS:
+        try:
+            extra_body()
+        except ValueError:      # includes json.JSONDecodeError
+            return None, "BBILINGUAL_EXTRA_BODY is not a JSON object"
     return name, None
 
 
