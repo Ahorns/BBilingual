@@ -67,7 +67,7 @@ ollama pull YOUR_MODEL
 }
 ```
 
-새 `claude`를 시작하고 아무거나 물어보세요. 클라우드 API나 DeepL을 쓰려면 [영어 README의 Backends](../../README.md#backends)를 보세요.
+새 `claude`를 시작하고 아무거나 물어보세요. 클라우드 API나 DeepL을 쓰려면 [백엔드 안내](../reference.md#backends)(영어)를 보세요.
 
 ## 알아 둘 점
 
@@ -75,8 +75,8 @@ ollama pull YOUR_MODEL
 - **읽기를 돕는 도구이며 완벽한 번역은 아닙니다.** 정확한 명령어, 숫자, 미묘한 부분은 영어 원문을 확인하세요.
 - **개인정보.** 백엔드를 설정하기 전에는 아무것도 전송되지 않습니다. 로컬 모델(Ollama, LM Studio)을 쓰면 내용이 내 컴퓨터를 벗어나지 않습니다. 로그는 기본적으로 꺼져 있습니다.
 - **이전 메시지는 번역되지 않습니다.** `claude -c`나 `--resume`으로 대화를 다시 열면 이전 답변은 번역 없이 다시 그려집니다.
-- **글꼴.** 한글·한자·가나는 영문 두 칸 너비를 차지하는 고정폭 글꼴(예: Sarasa Mono)을 쓰면 훨씬 보기 좋습니다. [Fonts](../../README.md#fonts-for-a-better-look)
+- **글꼴.** 한글·한자·가나는 영문 두 칸 너비를 차지하는 고정폭 글꼴(예: Sarasa Mono)을 쓰면 훨씬 보기 좋습니다. [글꼴 자세히 보기](../reference.md#fonts-for-a-better-look)(영어)
 
 ## 전체 문서
 
-모든 설정, 백엔드, 모양 조정, 문제 해결은 [영어 README](../../README.md)에 있습니다([简体中文](../../README.zh-CN.md)도 있습니다). 이 한국어 페이지는 AI가 번역한 것이며, 원어민의 검토를 환영합니다.
+모든 설정, 백엔드, 모양 조정, 문제 해결은 [영어 참고 문서](../reference.md)에 있습니다([简体中文](../reference.zh-CN.md)도 있습니다). 이 한국어 페이지는 AI가 번역한 것이며, 원어민의 검토를 환영합니다.

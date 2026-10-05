@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- README: a short front page; settings, backends, fonts, privacy and troubleshooting moved to
+  `docs/reference.md` (and `docs/reference.zh-CN.md`).
 - README: banner, animated demo, a real-session screenshot, how-it-works diagram, feature cards, quick start and a comparison table.
   Short README pages in Japanese, Korean and Spanish (`docs/translations/`) next to the Chinese one, each
   with a demo that shows its own language. A social preview image (`assets/social-preview.png`).

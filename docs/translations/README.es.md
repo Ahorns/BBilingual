@@ -8,7 +8,7 @@
   <a href="README.ja.md">日本語</a> ·
   <a href="README.ko.md">한국어</a> ·
   <b>Español</b> ·
-  <a href="../../CONTRIBUTING.md#translating-the-readme">añade tu idioma</a>
+  <a href="../../CONTRIBUTING.md#translating-the-readme">Añade tu idioma</a>
 </p>
 
 <p align="center">
@@ -67,7 +67,7 @@ ollama pull YOUR_MODEL
 }
 ```
 
-Abre un `claude` nuevo y pregunta lo que quieras. ¿Prefieres una API en la nube o DeepL? Mira [Backends en el README en inglés](../../README.md#backends).
+Abre un `claude` nuevo y pregunta lo que quieras. ¿Prefieres una API en la nube o DeepL? Mira [los backends](../reference.md#backends) (en inglés).
 
 ## Conviene saber
 
@@ -75,8 +75,8 @@ Abre un `claude` nuevo y pregunta lo que quieras. ¿Prefieres una API en la nube
 - **Es una ayuda de lectura, no una traducción perfecta.** Para un comando exacto, una cifra o un matiz, mira el inglés original.
 - **Privacidad.** No se envía nada hasta que configuras un backend. Con un modelo local (Ollama, LM Studio) el contenido no sale de tu máquina. El registro está desactivado por defecto.
 - **Los mensajes antiguos no se traducen.** Al reabrir una conversación con `claude -c` o `--resume`, las respuestas anteriores se vuelven a dibujar sin traducción.
-- **Tipografía.** Para chino, japonés y coreano conviene una fuente monoespaciada que dé a cada carácter el ancho de dos letras latinas (por ejemplo Sarasa Mono). [Fonts](../../README.md#fonts-for-a-better-look)
+- **Tipografía.** Para chino, japonés y coreano conviene una fuente monoespaciada que dé a cada carácter el ancho de dos letras latinas (por ejemplo Sarasa Mono). [Más sobre fuentes](../reference.md#fonts-for-a-better-look) (en inglés).
 
 ## Documentación completa
 
-Todos los ajustes, los backends, la apariencia y la solución de problemas están en el [README en inglés](../../README.md) (también hay una versión en [简体中文](../../README.zh-CN.md)). Esta página en español está traducida con IA; se agradece la revisión de hablantes nativos.
+Todos los ajustes, los backends, la apariencia y la solución de problemas están en la [referencia en inglés](../reference.md) (también en [简体中文](../reference.zh-CN.md)). Esta página en español está traducida con IA; se agradece la revisión de hablantes nativos.
