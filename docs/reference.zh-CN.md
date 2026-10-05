@@ -57,7 +57,7 @@ claude --plugin-dir /path/to/BBilingual
 | `BBILINGUAL_LOG` | 设为 `1` 会在本地记录英文与译文对照（见[隐私](#隐私与安全)） | 关闭 |
 | `BBILINGUAL_DISABLE` | 设为 `1` 会关闭这个 hook，可以只对一次会话，也可以永久 | 关闭 |
 
-如果只想在某一次对话中关闭 BBilingual，用 `BBILINGUAL_DISABLE=1 claude` 启动即可。
+如果只想在某一次对话中关闭 BBilingual，用 `BBILINGUAL_DISABLE=1 claude` 启动即可。在 Claude Code 里，`/bbilingual off` 会立刻关掉 Claude 回复下面的译文（无需重启），`/bbilingual on` 再打开；你的选择会被记住。单独输入 `/bbilingual` 会显示当前设置。这个命令和 `/bbinput` 一样，需要 Claude Code 2.1.287 或更新版本。
 
 ## 使用本地模型（推荐）
 

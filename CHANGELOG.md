@@ -1,8 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.3.2 - 2026-10-05
 
+- `/bbilingual on | off` switches the translation under Claude's replies on or off inside Claude Code, without a
+  restart, and remembers the choice (Claude Code 2.1.287 or newer).
 - README: an animated demo of input translation (`assets/input-demo.svg`, and a Chinese-label version for the Chinese README).
+- Repository: the generated `tsconfig.json` and `.claude-plugin/types/` that Claude Code writes next to a mod are ignored.
 
 ## 0.3.1 - 2026-10-05
 

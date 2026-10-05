@@ -75,3 +75,57 @@ test('/bbinput confirm is not a mode any more', async ($, on) => {
   expect(wrong.text).toContain('"confirm" is not a mode')
   expect(wrong.text).toContain('input translation is on')
 })
+
+// ---- /bbilingual: the display translation on or off ----
+
+function envSets(on: any) {
+  const sets: Array<[string, string | undefined]> = []
+  on('env.set', ($: any, e: any) => {
+    sets.push([e.name, e.value])
+    return { value: undefined }
+  })
+  return sets
+}
+
+test('/bbilingual off sets BBILINGUAL_DISABLE and is remembered; on clears it', async ($, on) => {
+  mock.env(on, {})
+  mock.store(on, {})
+  const sets = envSets(on)
+  const off = await $.command.run({ command: 'bbilingual', args: 'off' })
+  expect(off.text).toContain('is off')
+  expect(sets).toEqual([['BBILINGUAL_DISABLE', '1']])
+  expect((await $.command.run({ command: 'bbilingual', args: '' })).text).toContain('is off')
+  const on1 = await $.command.run({ command: 'bbilingual', args: 'on' })
+  expect(on1.text).toContain('is on')
+  expect(sets[1]).toEqual(['BBILINGUAL_DISABLE', undefined])
+})
+
+test('a saved off is applied again when a session starts', async ($, on) => {
+  mock.env(on, {})
+  mock.store(on, { display: 'off' })
+  on('command.register', () => ({ value: undefined }))
+  on('session.start', () => ({ cwd: '/work' }))
+  const sets = envSets(on)
+  await $.session.start({ surface: 'terminal', isInteractive: true, cwd: '/work' })
+  expect(sets).toEqual([['BBILINGUAL_DISABLE', '1']])
+})
+
+test('nothing saved: a session start changes nothing', async ($, on) => {
+  mock.env(on, {})
+  mock.store(on, {})
+  on('command.register', () => ({ value: undefined }))
+  on('session.start', () => ({ cwd: '/work' }))
+  const sets = envSets(on)
+  await $.session.start({ surface: 'terminal', isInteractive: true, cwd: '/work' })
+  expect(sets).toEqual([])
+})
+
+test('/bbilingual shows off when BBILINGUAL_DISABLE=1 is set; a wrong word changes nothing', async ($, on) => {
+  mock.env(on, { BBILINGUAL_DISABLE: '1' })
+  mock.store(on, {})
+  const sets = envSets(on)
+  expect((await $.command.run({ command: 'bbilingual', args: '' })).text).toContain('is off')
+  const wrong = await $.command.run({ command: 'bbilingual', args: 'maybe' })
+  expect(wrong.text).toContain('"maybe" is not a mode')
+  expect(sets).toEqual([])
+})

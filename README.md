@@ -83,7 +83,7 @@ ollama pull YOUR_MODEL
 }
 ```
 
-Start a new `claude` and ask anything. You need a Claude Code with the `MessageDisplay` hook and Python 3.9+
+Start a new `claude` and ask anything. Switch the translation off or on with `/bbilingual off` and `/bbilingual on`. You need a Claude Code with the `MessageDisplay` hook and Python 3.9+
 (Linux, macOS or WSL). Prefer a hosted API or DeepL? See [Backends](docs/reference.md#backends).
 
 ## Why BBilingual

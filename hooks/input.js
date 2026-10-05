@@ -4,6 +4,8 @@
 // (scripts/to_english.py, with the same settings as the display hook) and sent in its place. Your
 // message then shows as the English that Claude received. There is no question and no pop-up.
 //
+// Also here: /bbilingual on or off switches the display translation (the text under Claude's replies).
+//
 // It is off until you turn it on. Switch it with /bbinput on or /bbinput off; the choice is
 // remembered across sessions. BBILINGUAL_INPUT (on | off) sets the starting value. Slash commands,
 // shell lines (!), long pastes and plain English are never touched, and a failed translation sends
@@ -21,9 +23,19 @@ async function currentMode($) {
   return mode === 'on' || mode === 'auto' || mode === 'confirm' ? 'on' : 'off'
 }
 
+async function displayIsOff($) {
+  const saved = await $.store.get('display')
+  if (saved === 'off') return true
+  if (saved === 'on') return false
+  return (await $.env.get('BBILINGUAL_DISABLE')) === '1'
+}
+
 export function register(on) {
   on('session.start', async ($, e, next) => {
     await $.command.register({ name: 'bbinput', description: 'Translate what you type into English: on or off' })
+    await $.command.register({ name: 'bbilingual', description: "Show a translation under Claude's replies: on or off" })
+    // the display hook is a separate process that obeys BBILINGUAL_DISABLE; re-apply a saved "off"
+    if ((await $.store.get('display')) === 'off') await $.env.set('BBILINGUAL_DISABLE', '1')
     return next(e)
   })
 
@@ -33,6 +45,21 @@ export function register(on) {
     const mode = await currentMode($)
     const hint = asked && !MODES.includes(asked) ? ' ("' + asked + '" is not a mode)' : ''
     return { text: 'input translation is ' + mode + hint + '. /bbinput on or off changes it.' }
+  })
+
+  on('command.run', { command: 'bbilingual' }, async ($, e) => {
+    const asked = e.args.trim().toLowerCase()
+    if (asked === 'off') {
+      await $.store.set('display', 'off')
+      await $.env.set('BBILINGUAL_DISABLE', '1')
+    }
+    if (asked === 'on') {
+      await $.store.set('display', 'on')
+      await $.env.set('BBILINGUAL_DISABLE', undefined)
+    }
+    const state = (await displayIsOff($)) ? 'off' : 'on'
+    const hint = asked && asked !== 'on' && asked !== 'off' ? ' ("' + asked + '" is not a mode)' : ''
+    return { text: "translation under Claude's replies is " + state + hint + '. /bbilingual on or off changes it.' }
   })
 
   on('prompt.submit', async ($, e, next) => {

@@ -6,3 +6,7 @@ __pycache__/
 log.jsonl
 .env
 .env.*
+
+# written by Claude Code next to a mod (generated, not source)
+tsconfig.json
+.claude-plugin/types/

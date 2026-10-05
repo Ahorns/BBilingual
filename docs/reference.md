@@ -64,7 +64,10 @@ manager instead. Start a new `claude` after changing settings; running sessions 
 | `BBILINGUAL_LOG` | `1` records English/translation pairs locally (see [Privacy](#privacy-and-security)) | off |
 | `BBILINGUAL_DISABLE` | `1` switches the hook off, for one session or for good | off |
 
-To switch BBILINGUAL off for a single conversation, start it with `BBILINGUAL_DISABLE=1 claude`.
+To switch BBILINGUAL off for a single conversation, start it with `BBILINGUAL_DISABLE=1 claude`. Inside Claude Code,
+`/bbilingual off` switches the translation under Claude's replies off straight away (no restart) and
+`/bbilingual on` switches it back on; the choice is remembered. `/bbilingual` alone shows the current setting.
+The command needs Claude Code 2.1.287 or newer, like `/bbinput`.
 
 ## Use a local model (recommended)
 
