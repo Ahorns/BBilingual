@@ -53,7 +53,7 @@ claude --plugin-dir /path/to/BBilingual
 | `BBILINGUAL_PROMPT_EXTRA` | 给模型的额外指令：领域、术语表、语气 | 无 |
 | `BBILINGUAL_TEMPERATURE` | 仅在设置时才发送（有些模型不接受默认值以外的值） | 不发送 |
 | `BBILINGUAL_STYLE` | 译文的颜色：`dim`、`italic`、`gray`、`cyan`、`green`、`yellow` | 普通 |
-| `BBILINGUAL_INPUT` | [输入翻译](#用自己的语言输入)的初始值：`on`、`confirm` 或 `off`（`/bbinput` 会覆盖它） | `off` |
+| `BBILINGUAL_INPUT` | [输入翻译](#用自己的语言输入)的初始值：`on` 或 `off`（`/bbinput` 会覆盖它） | `off` |
 | `BBILINGUAL_LOG` | 设为 `1` 会在本地记录英文与译文对照（见[隐私](#隐私与安全)） | 关闭 |
 | `BBILINGUAL_DISABLE` | 设为 `1` 会关闭这个 hook，可以只对一次会话，也可以永久 | 关闭 |
 
@@ -133,15 +133,14 @@ ollama pull YOUR_MODEL            # 选一个模型，见下文
 | 命令 | 效果 |
 |---|---|
 | `/bbinput on` | 翻译后直接发送英文 |
-| `/bbinput confirm` | 先显示英文并询问“发送 / 取消”（在“其他”里输入的文字会被改为发送这段） |
 | `/bbinput off` | 什么也不做（默认） |
 | `/bbinput` | 显示当前设置 |
 
-`BBILINGUAL_INPUT`（`on`、`confirm` 或 `off`）设置初始值，`/bbinput` 会覆盖它。
+`BBILINGUAL_INPUT`（`on` 或 `off`）设置初始值，`/bbinput` 会覆盖它。没有弹窗，也不会提问：你在对话里看到的就是 Claude 收到的英文。
 
 - **会翻译什么：** 含有非纯英文字母的文字：中文、日文、韩文、西里尔字母、阿拉伯文、希伯来文、印度系文字、泰文，或带重音的拉丁字母。模型会被告知把代码、文件路径、@ 提及、URL 和技术术语保持原样。
 - **不会翻译什么：** 纯英文、斜杠命令（`/...`）、shell 行（`!...`）以及超过 4000 个字符的粘贴内容，都会原样通过。
-- **失败时：** 如果翻译失败或结果与原文相同，会原样发送你输入的内容（在 `confirm` 模式下会先询问你）。
+- **失败时：** 如果翻译失败或结果与原文相同，会原样发送你输入的内容。
 - **后端：** 需要 `openai` 后端（任何兼容 OpenAI 的 API 或本地模型），模型、密钥和基础 URL 与显示 hook 相同。`deepl` 和 `command` 在这里不能翻译成英文。
 - **隐私：** 你输入的内容会发送到你的翻译后端，和 Claude 的回复一样。[本地模型](#使用本地模型推荐)可以让它留在你的电脑上。
 - **要求：** Claude Code 2.1.287 或更新版本。它使用 Claude Code 的 mods API，Anthropic 称其为抢先体验功能，以后可能会变化。显示翻译使用的是常规 hook API。
@@ -214,7 +213,7 @@ BBILINGUAL_PROMPT_EXTRA="The text is about neuroscience. Translate 'spike' as �
 
 **什么都没有被翻译。** 在 Claude Code 窗口里运行 `! echo $BBILINGUAL_BACKEND`，它必须打印出一个后端名称。设置是在 `claude` 启动时读取的，所以修改后请开启新的会话。运行 `/plugin` 检查 BBilingual 是否已启用。
 
-**输入没有被翻译。** 输入 `/bbinput` 查看设置，它必须显示 `on` 或 `confirm`。它只处理含有非英文字母的文字，需要 `openai` 后端，并且需要 Claude Code 2.1.287 或更新版本。手动试一下翻译器：`echo '你好' | python3 scripts/to_english.py`。
+**输入没有被翻译。** 输入 `/bbinput` 查看设置，它必须显示 `on`。它只处理含有非英文字母的文字，需要 `openai` 后端，并且需要 Claude Code 2.1.287 或更新版本。手动试一下翻译器：`echo '你好' | python3 scripts/to_english.py`。
 
 **手动试一下 hook。** 下面的命令会打印 Claude Code 会收到的 JSON 返回值：
 

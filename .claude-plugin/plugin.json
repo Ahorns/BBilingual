@@ -1,7 +1,7 @@
 {
   "name": "bbilingual",
   "displayName": "BBilingual",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Show a translation under every English assistant message in Claude Code. Display-only: the transcript and Claude's context stay English. Bring your own translation backend and target language. Optionally translates what you type into English too.",
   "author": {
     "name": "BBilingual contributors"

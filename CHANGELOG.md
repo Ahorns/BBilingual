@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1 - 2026-10-05
+
+- Input translation has no confirmation box any more: `/bbinput` is `on` or `off`. A message is sent as the English
+  straight away, and a failed translation sends what you typed.
+
 ## 0.3.0 - 2026-10-05
 
 - New, off by default: input translation. Type in your own language and Claude receives English

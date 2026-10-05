@@ -6,18 +6,14 @@ const CHINESE = '我的 loss 在剪枝之后不稳定，怎么办？'
 const SPANISH = '¿Por qué mi pérdida es inestable después de podar?'
 const ENGLISH = 'Why is my loss unstable after pruning?'
 
-// stubs: what scripts/to_english.py prints (and its exit code), and the answer to the "Send this to Claude?" question
-function stubs(on: any, opts: { mode?: string; exitCode?: number; stdout?: string; answer?: string }) {
+// stubs: what scripts/to_english.py prints and its exit code; the starting mode comes from the environment
+function stubs(on: any, opts: { mode?: string; exitCode?: number; stdout?: string }) {
   mock.env(on, opts.mode ? { BBILINGUAL_INPUT: opts.mode } : {})
   mock.store(on, {})
-  const seen = { ran: 0, question: '' }
+  const seen = { ran: 0 }
   on('process.run', () => {
     seen.ran += 1
     return { value: { exitCode: opts.exitCode ?? 0, stdout: opts.stdout ?? ENGLISH, stderr: '' } }
-  })
-  on('tool.call', ($: any, e: any) => {
-    seen.question = e.questions[0].question
-    return { result: { answers: { [seen.question]: opts.answer ?? 'Send' } } }
   })
   on('prompt.submit', ($: any, e: any) => ({ text: e.text }))
   return seen
@@ -49,28 +45,6 @@ test('on: a failed translation sends what was typed', async ($, on) => {
   expect((await $.prompt.submit({ text: CHINESE })).text).toBe(CHINESE)
 })
 
-test('confirm: Send sends the English, after showing it', async ($, on) => {
-  const seen = stubs(on, { mode: 'confirm', answer: 'Send' })
-  expect((await $.prompt.submit({ text: CHINESE })).text).toBe(ENGLISH)
-  expect(seen.question).toContain(ENGLISH)
-})
-
-test('confirm: Cancel sends nothing and returns the typed text', async ($, on) => {
-  stubs(on, { mode: 'confirm', answer: 'Cancel' })
-  const out = await $.prompt.submit({ text: CHINESE })
-  expect(out.drop).toContain(CHINESE)
-})
-
-test('confirm: text typed under Other is sent instead', async ($, on) => {
-  stubs(on, { mode: 'confirm', answer: 'Why does pruning make my loss unstable?' })
-  expect((await $.prompt.submit({ text: CHINESE })).text).toBe('Why does pruning make my loss unstable?')
-})
-
-test('confirm: a failed translation asks before sending the original', async ($, on) => {
-  stubs(on, { mode: 'confirm', exitCode: 1, stdout: '', answer: 'Send as typed' })
-  expect((await $.prompt.submit({ text: CHINESE })).text).toBe(CHINESE)
-})
-
 test('/bbinput on, off: the switch is remembered', async ($, on) => {
   const seen = stubs(on, {})
   const turnedOn = await $.command.run({ command: 'bbinput', args: 'on' })
@@ -87,5 +61,17 @@ test('/bbinput alone shows the state; a wrong word changes nothing', async ($, o
   expect((await $.command.run({ command: 'bbinput', args: '' })).text).toContain('input translation is on')
   const wrong = await $.command.run({ command: 'bbinput', args: 'maybe' })
   expect(wrong.text).toContain('"maybe" is not a mode')
+  expect(wrong.text).toContain('input translation is on')
+})
+
+test('an old "confirm" or "auto" setting just means on', async ($, on) => {
+  stubs(on, { mode: 'confirm' })
+  expect((await $.prompt.submit({ text: CHINESE })).text).toBe(ENGLISH)
+})
+
+test('/bbinput confirm is not a mode any more', async ($, on) => {
+  stubs(on, { mode: 'on' })
+  const wrong = await $.command.run({ command: 'bbinput', args: 'confirm' })
+  expect(wrong.text).toContain('"confirm" is not a mode')
   expect(wrong.text).toContain('input translation is on')
 })

@@ -118,7 +118,7 @@ English. It is off until you turn it on with `/bbinput on` (or `BBILINGUAL_INPUT
 ❯ Why is fine-tuning necessary after pruning?        ← what Claude receives, and what the chat shows
 ```
 
-- `/bbinput confirm` shows the English and asks before sending, and `/bbinput off` turns it off again.
+- `/bbinput off` turns it off again and `/bbinput on` back on. There is no pop-up: the chat shows the English that Claude received.
 - It needs an OpenAI-compatible backend and Claude Code 2.1.287 or newer, and it uses Claude Code's
   early-access mods API. What you type goes to your translator, so a local model keeps it private.
   [Details](docs/reference.md#write-in-your-own-language)
