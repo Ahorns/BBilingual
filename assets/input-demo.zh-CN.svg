@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="250" viewBox="0 0 1040 250" role="img" aria-labelledby="t d">
+<title id="t">Write in your own language with BBilingual</title>
+<desc id="d">你用中文输入问题。BBilingual 把英文译文发给 Claude，对话里显示的也是这句英文。Claude 用英文回答，答案下面有灰色的中文译文。</desc>
+<style>.m text{font-family:"Cascadia Mono", "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "Noto Sans Mono CJK SC", "Microsoft YaHei", "PingFang SC", monospace;font-size:15px;font-weight:400}
+.a{animation-duration:16s;animation-iteration-count:infinite;animation-timing-function:ease-out}
+.zhp{opacity:0}.cover{transform:translateX(700px)}
+@media (prefers-reduced-motion: reduce){.a,.cover{animation:none!important}}
+.zhp{animation-name:kzh}@keyframes kzh{0%,20%{opacity:1}22%,100%{opacity:0}}
+.enp{animation-name:ken}@keyframes ken{0%,21%{opacity:0}24%,96%{opacity:1}99%,100%{opacity:0}}
+.cover{animation:kcover 16s infinite}@keyframes kcover{0%{transform:translateX(0);animation-timing-function:steps(12,end)}16%{transform:translateX(210px)}16.1%,100%{transform:translateX(700px)}}
+.p1{animation-name:kp1}@keyframes kp1{0%,25%{opacity:0;transform:translateY(5px)}27%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+.reply{animation-name:kreply}@keyframes kreply{0%,33%{opacity:0;transform:translateY(5px)}35%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+.zhr{animation-name:kzhr}@keyframes kzhr{0%,43%{opacity:0;transform:translateY(5px)}45%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+.p2{animation-name:kp2}@keyframes kp2{0%,45%{opacity:0;transform:translateY(5px)}47%,96%{opacity:1;transform:none}99%,100%{opacity:0}}</style>
+<rect x="0.5" y="0.5" width="1039" height="249" rx="12" fill="#0d1117" stroke="#30363d"/>
+<path d="M0.5 12.5a12 12 0 0 1 12-12h1015a12 12 0 0 1 12 12V44H0.5z" fill="#161b22"/>
+<line x1="0" y1="44.5" x2="1040" y2="44.5" stroke="#30363d"/>
+<circle cx="26" cy="22" r="6.5" fill="#ff5f56"/><circle cx="48" cy="22" r="6.5" fill="#ffbd2e"/><circle cx="70" cy="22" r="6.5" fill="#27c93f"/>
+<text x="520" y="27" text-anchor="middle" font-size="13" fill="#8b949e" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif'>Claude Code  &#183;  BBilingual  &#183;  /bbinput on</text>
+<g class="m">
+<rect x="1" y="62" width="1038" height="34" fill="#161b22"/>
+<text x="28" y="85" fill="#e6edf3" class="" xml:space="preserve"><tspan fill="#7ee787">&#10095;</tspan></text>
+<text x="56" y="85" fill="#e6edf3" class="a zhp" xml:space="preserve">为什么剪枝之后要微调？</text>
+<text x="56" y="85" fill="#e6edf3" class="a enp" xml:space="preserve">Why is fine-tuning necessary after pruning?</text>
+<rect class="cover" x="56" y="64" width="210" height="30" fill="#161b22"/>
+<g class="a p1"><rect x="726" y="68" width="290" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="740" y="86" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; 你输入的是中文，Claude 收到的是英文</text></g>
+<g class="a reply"><text x="28" y="134" fill="#e6edf3" class="" xml:space="preserve">● Fine-tuning lets the remaining weights re-adjust and recover</text><text x="28" y="160" fill="#e6edf3" class="" xml:space="preserve">  the accuracy that pruning removed.</text></g>
+<g class="a zhr"><text x="28" y="186" fill="#8b949e" class="" xml:space="preserve">  微调让剩余的权重重新适应，并恢复剪枝造成的精度损失。</text></g>
+<g class="a p2"><rect x="726" y="169" width="290" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="740" y="187" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; 你读到的回答也是中文</text></g>
+</g></svg>

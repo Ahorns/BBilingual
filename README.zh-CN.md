@@ -38,6 +38,14 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
   </tr>
 </table>
 
+## 用自己的语言输入（可选）
+
+<p align="center">
+  <img src="assets/input-demo.zh-CN.svg" alt="你用中文输入问题。BBilingual 把英文译文发给 Claude，对话里显示的也是这句英文。Claude 用英文回答，答案下面有灰色的中文译文。" width="900">
+</p>
+
+用你自己的语言输入就行。BBilingual 把英文发给 Claude，对话里显示的也是这句英文，而你读到的回答仍然是你的语言。它默认关闭，用 `/bbinput on`（或 `BBILINGUAL_INPUT=on`）打开，`/bbinput off` 再次关闭。没有弹窗。需要兼容 OpenAI 的后端和 Claude Code 2.1.287 或更新版本，使用的是 Claude Code 抢先体验的 mods API。你输入的内容会发到你的翻译后端，用本地模型可以保持私密。[详情](docs/reference.zh-CN.md#用自己的语言输入)
+
 ## 真实效果
 
 <p align="center">
@@ -99,18 +107,6 @@ BBilingual 翻译的是 Claude 的回答，不是你输入的内容，所以提�
 </p>
 
 译文**只用于显示**。它通过 Claude Code 的 `MessageDisplay` hook 加入，只改变屏幕上绘制的内容，别无其他。对话记录和 Claude 的上下文都保持英文，所以 Claude 的回答和没装插件时完全一样。更多细节见[设计说明](docs/how-it-works.md)（英文）。
-
-## 用自己的语言输入（可选）
-
-BBilingual 还能翻译你输入的内容：你用自己的语言写，Claude 收到的是英文。它默认关闭，用 `/bbinput on`（或 `BBILINGUAL_INPUT=on`）打开。然后照常输入：
-
-```
-❯ 为什么剪枝之后要微调？                              ← 你输入的
-❯ Why is fine-tuning necessary after pruning?        ← Claude 收到的，对话里显示的也是这句
-```
-
-- `/bbinput off` 再次关闭，`/bbinput on` 重新打开。没有弹窗：对话里显示的就是 Claude 收到的英文。
-- 需要兼容 OpenAI 的后端和 Claude Code 2.1.287 或更新版本，使用的是 Claude Code 抢先体验的 mods API。你输入的内容会发到你的翻译后端，用本地模型可以保持私密。[详情](docs/reference.zh-CN.md#用自己的语言输入)
 
 ## 文档
 

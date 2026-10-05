@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- README: an animated demo of input translation (`assets/input-demo.svg`, and a Chinese-label version for the Chinese README).
+
 ## 0.3.1 - 2026-10-05
 
 - Input translation has no confirmation box any more: `/bbinput` is `on` or `off`. A message is sent as the English

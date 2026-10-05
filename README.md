@@ -40,6 +40,18 @@ still thinks, writes and remembers in English.
   </tr>
 </table>
 
+## Write in your own language (optional)
+
+<p align="center">
+  <img src="assets/input-demo.svg" alt="You type a question in Chinese. BBilingual sends Claude the English translation, and the chat shows that English. Claude answers in English, with a gray Chinese translation under the answer." width="900">
+</p>
+
+Type in your own language. BBilingual sends Claude the English, the chat shows that English, and you still read
+the answer in your language. It is off until you turn it on with `/bbinput on` (or `BBILINGUAL_INPUT=on`), and
+`/bbinput off` turns it off again. There is no pop-up. It needs an OpenAI-compatible backend and Claude Code
+2.1.287 or newer, and it uses Claude Code's early-access mods API. What you type goes to your translator, so a
+local model keeps it private. [Details](docs/reference.md#write-in-your-own-language)
+
 ## A real session
 
 <p align="center">
@@ -107,21 +119,6 @@ fine). It is a reading aid, not a perfect translation: for an exact command or n
 The translation is **display only**. It is added through Claude Code's `MessageDisplay` hook, which changes what
 is drawn on screen and nothing else. The transcript and Claude's context stay English, so Claude answers exactly
 as it would without the plugin. More in [how it works](docs/how-it-works.md).
-
-## Write in your own language (optional)
-
-BBilingual can also translate what you type, so you write to Claude in your own language and it receives
-English. It is off until you turn it on with `/bbinput on` (or `BBILINGUAL_INPUT=on`). Then type as usual:
-
-```
-❯ 为什么剪枝之后要微调？                              ← what you type
-❯ Why is fine-tuning necessary after pruning?        ← what Claude receives, and what the chat shows
-```
-
-- `/bbinput off` turns it off again and `/bbinput on` back on. There is no pop-up: the chat shows the English that Claude received.
-- It needs an OpenAI-compatible backend and Claude Code 2.1.287 or newer, and it uses Claude Code's
-  early-access mods API. What you type goes to your translator, so a local model keeps it private.
-  [Details](docs/reference.md#write-in-your-own-language)
 
 ## Documentation
 
