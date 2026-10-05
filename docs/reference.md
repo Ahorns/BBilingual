@@ -177,6 +177,9 @@ is no pop-up and no question: you see your message in the chat as the English th
   characters pass through unchanged.
 - **When it fails:** if the translation fails or comes back unchanged, what you typed is sent as it is
   (in `confirm` mode you are asked first).
+- **While Claude is still working:** a message you type then waits in Claude Code's queue exactly as you typed
+  it (Claude Code shows that list itself and a plugin cannot change it). It is translated at once, and a line above
+  the prompt, "Waiting to be sent, as English", shows the English until Claude's turn ends.
 - **Backend:** it needs the `openai` backend (any OpenAI-compatible API or a local model), with the same
   model, key and base URL as the display hook. `deepl` and `command` cannot translate into English here.
 - **Privacy:** what you type is sent to your translator, as Claude's replies are. A [local model](#use-a-local-model-recommended) keeps it on your machine.

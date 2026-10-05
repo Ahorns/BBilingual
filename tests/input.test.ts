@@ -162,3 +162,38 @@ test('/bbilingual shows off when BBILINGUAL_DISABLE=1 is set; a wrong word chang
   expect(wrong.text).toContain('"maybe" is not a mode')
   expect(sets).toEqual([])
 })
+
+// ---- a message typed while Claude is still working: its English is shown above the prompt ----
+
+const BAND = {
+  plugin: 'bbilingual',
+  component: 'AbovePrompt',
+  viewport: { columns: 100, rows: 30 },
+  props: { hasSurvey: false, isWorking: true, maxRows: 10, bodyColumns: 95, scroll: { offset: 0, bodyRows: 10 }, view: {} },
+} as any
+
+test('a message typed while Claude works is shown in English above the prompt until the turn ends', async ($, on) => {
+  stubs(on, { mode: 'on' })
+  on('ui.render', () => ({ type: 'Text', props: {}, children: [''] }))     // what Claude Code draws in the band
+  on('turn.complete', () => ({ text: '' }))
+  const out = await ($.prompt as any).submit({ text: CHINESE, turnId: 't1' })   // typed over turn t1
+  expect(out.text).toBe(ENGLISH)
+
+  const waiting = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await waiting.find({ type: 'Text', text: /Waiting to be sent, as English: / })).toBeDefined()
+  await waiting.unmount()
+
+  await $.turn.complete({ turnId: 't1', answer: '', durationMs: 1, isAborted: false, usage: null })
+  const done = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await done.find({ type: 'Text', text: /Waiting to be sent/ })).toBeUndefined()
+  await done.unmount()
+})
+
+test('a message typed while Claude is idle is not shown in the band', async ($, on) => {
+  stubs(on, { mode: 'on' })
+  on('ui.render', () => ({ type: 'Text', props: {}, children: [''] }))
+  await $.prompt.submit({ text: CHINESE })
+  const band = await $.ui.mount({ ...BAND, surface: 'terminal' })
+  expect(await band.find({ type: 'Text', text: /Waiting to be sent/ })).toBeUndefined()
+  await band.unmount()
+})

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.6 - 2026-10-05
+
+- A message typed while Claude is still working is translated at once, and a line above the prompt shows its English
+  while it waits in Claude Code's queue (the queue itself keeps showing what you typed).
+
 ## 0.3.5 - 2026-10-05
 
 - Took back 0.3.4: fenced code blocks are never translated again, whatever their language tag.
