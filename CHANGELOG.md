@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.4 - 2026-10-05
+
+- Plain-text blocks are translated: a fenced block with no language (or `text`), such as a diagram, gets a translation
+  under each line that reads like an English sentence. Blocks with a language tag are still never translated.
+
 ## 0.3.3 - 2026-10-05
 
 - `/bbinput confirm` is back as an optional mode: it shows the English and asks Send / Cancel before anything is sent.

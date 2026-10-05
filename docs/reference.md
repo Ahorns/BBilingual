@@ -13,7 +13,7 @@ models, languages, fonts, privacy, limitations and troubleshooting.
 ## Install
 
 Requirements: a Claude Code version that has the `MessageDisplay` hook (tested with 2.1.285 to
-2.1.287), Python 3.9 or newer (standard library only; developed on 3.12, CI runs 3.9 to 3.12),
+2.1.289), Python 3.9 or newer (standard library only; developed on 3.12, CI runs 3.9 to 3.12),
 Linux, macOS or WSL.
 
 ```bash
@@ -243,8 +243,12 @@ original. If you cannot or do not want to change fonts, nothing else needs to ch
 
 Translated: paragraphs, headings, bullets, numbered items, quotes, table cells that contain words.
 
-Left alone: fenced code blocks, lines that are already in the target script (CJK targets), table
-separator rows, cells without words such as numbers, and any line where the translator returns the
+Plain-text blocks: a fenced block with no language (or `text`) is treated as plain text, such as a diagram or a
+list of steps. Its lines that read like English sentences (three or more words, no code symbols or flags) are
+translated, each one right under the original and inside the block; the rest of the block is left alone.
+
+Left alone: fenced code blocks with a language tag (` ```python `), lines that are already in the target
+script (CJK targets), table separator rows, cells without words such as numbers, and any line where the translator returns the
 original unchanged. The translator itself decides what is worth translating, so a status line or
 progress bar is translated or ignored depending on the model.
 
