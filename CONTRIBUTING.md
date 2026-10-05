@@ -34,6 +34,15 @@ claude --plugin-dir /path/to/your/clone
 After editing a plugin that is installed from a marketplace, bump `version` in
 `.claude-plugin/plugin.json` and run `claude plugin update`, because Claude Code runs a cached copy.
 
+## Translating the README
+
+`README.zh-CN.md` is the full Chinese README. Other languages live in `docs/translations/` as short
+landing pages (what it is, why, quick start, things to know) that link to the English README for the
+details. To add one, copy `docs/translations/README.es.md`, translate it, set `BBILINGUAL_TARGET` in the
+quick start to your language code, and add the language to the switch line at the top of every README.
+Say in the page whether it was translated by a person or by an AI, and have a native speaker read it if
+you can.
+
 ## Reporting bugs
 
 Use the issue template. The most useful report has the English text, what you expected and a screenshot

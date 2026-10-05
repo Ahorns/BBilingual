@@ -1,23 +1,69 @@
-**English** | [简体中文](README.zh-CN.md)
+<p align="center">
+  <img src="assets/banner.svg" alt="BBilingual: prompt Claude in English, read the answer in your language" width="100%">
+</p>
 
-# BBilingual
+<p align="center">
+  <b>English</b> ·
+  <a href="README.zh-CN.md">简体中文</a> ·
+  <a href="docs/translations/README.ja.md">日本語</a> ·
+  <a href="docs/translations/README.ko.md">한국어</a> ·
+  <a href="docs/translations/README.es.md">Español</a> ·
+  <a href="CONTRIBUTING.md#translating-the-readme">add yours</a>
+</p>
 
-[![tests](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml/badge.svg)](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml)
-[![License: MIT](https://img.shields.io/github/license/Ahorns/BBilingual)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Ahorns/BBilingual?style=social)](https://github.com/Ahorns/BBilingual/stargazers)
+<p align="center">
+  <a href="https://github.com/Ahorns/BBilingual/actions/workflows/test.yml"><img alt="tests" src="https://github.com/Ahorns/BBilingual/actions/workflows/test.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/Ahorns/BBilingual"></a>
+  <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
+</p>
 
-**Work with Claude in English for the best results, and read everything in your own language.**
+<h3 align="center">Work with Claude in English for the best results,<br>and read everything in your own language.</h3>
+
+<p align="center">
+  <img src="assets/demo.svg" alt="Claude Code answering in English, with a gray translation under every line and the code block left untranslated" width="900">
+</p>
 
 BBilingual is a [Claude Code](https://code.claude.com) plugin. It shows a translation under every
-English assistant message, in your terminal, in real time:
+English assistant message, in your terminal, in real time. The translation is display only: Claude
+still thinks, writes and remembers in English.
 
-```
-● Pruning removes weights that contribute little to the output.
-  剪枝会移除对输出贡献较小的权重。
+<table>
+  <tr>
+    <td width="33%" valign="top"><b>🧠 Claude stays at its best</b><br>It never sees the translation, so its answers are the ones an English speaker would get.</td>
+    <td width="33%" valign="top"><b>🌍 Any language</b><br>Chinese, Japanese, Korean, Spanish, French, Arabic&hellip; whatever your translator can write.</td>
+    <td width="33%" valign="top"><b>🔒 Private by default</b><br>Nothing is sent until you set a backend. With a local model nothing leaves your machine.</td>
+  </tr>
+  <tr>
+    <td valign="top"><b>🧩 Bring your own backend</b><br>Ollama, LM Studio, any OpenAI-compatible API, DeepL, or your own command.</td>
+    <td valign="top"><b>🧱 Layout-aware</b><br>Code is never translated. Headings, bullets, quotes and tables keep their shape.</td>
+    <td valign="top"><b>🪶 Tiny</b><br>One hook file, Python standard library only, nothing to build.</td>
+  </tr>
+</table>
 
-  - The companion stream protects the other stream.
-    伴随流保护另一条流。
+## Quick start
+
+```bash
+# 1. install the plugin
+claude plugin marketplace add Ahorns/BBilingual
+claude plugin install bbilingual@bbilingual
+
+# 2. get a translator, for example a local model (pick any model you like)
+ollama pull YOUR_MODEL
 ```
+
+```jsonc
+// 3. in ~/.claude/settings.json (change "zh-CN" to your language, for example "ja", "es", "fr")
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "openai",
+    "BBILINGUAL_API_BASE": "http://localhost:11434/v1",
+    "BBILINGUAL_MODEL": "YOUR_MODEL",
+    "BBILINGUAL_TARGET": "zh-CN"
+  }
+}
+```
+
+Start a new `claude` and ask anything. Prefer a hosted API or DeepL? See [Backends](#backends).
 
 ## Why BBilingual
 
@@ -34,15 +80,15 @@ that is tiring to follow, and it is easy to miss a detail. Asking Claude to answ
 language fixes the reading, but it moves Claude out of the language it is best in. So people end up
 choosing between answers that are better and answers they can read comfortably.
 
-**The idea: do not choose.** Claude works in English the whole time. BBilingual translates only what
-is drawn on your screen, line by line, as it arrives:
+| | Ask in your own language | Ask in English | **English + BBilingual** |
+|---|:---:|:---:|:---:|
+| Claude's answers | often a little weaker | at their best | **at their best** |
+| Easy for you to read | ✅ | ❌ hard work | **✅** |
+| The original English to check | ❌ | ✅ | **✅** |
+| Tokens used | more | fewer | **fewer** |
 
-```
-you (English prompt)  →  Claude (English only)  →  hook  →  translator  →  your terminal
-                              │                                              English + your language
-                     the conversation, the transcript
-                     and Claude's context stay English
-```
+**The idea: do not choose.** Claude works in English the whole time. BBilingual translates only what
+is drawn on your screen, line by line, as it arrives (the picture is under [How it works](#how-it-works)).
 
 - **Claude performs at its best.** It never sees the translation and is never asked to write in two
   languages, so its answers are the ones it would give an English speaker.
@@ -61,6 +107,10 @@ not a perfect translation: for an exact command, a number or a subtle point, loo
 
 ## How it works
 
+<p align="center">
+  <img src="assets/how-it-works.svg" alt="You write in English, Claude answers in English, the MessageDisplay hook sends each line to your translator, and your terminal shows English plus your language. The conversation and Claude's context stay English." width="100%">
+</p>
+
 The translation is **display only**. It is added through Claude Code's `MessageDisplay` hook, which
 changes what is drawn on screen and nothing else. The transcript, the conversation history and
 Claude's context all keep the original English, so Claude is never asked to write bilingual text,
@@ -77,7 +127,7 @@ never reads your translation back, and answers exactly as it would without the p
 
 ## Contents
 
-[Why](#why-bbilingual) · [How it works](#how-it-works) · [Install](#install) · [Configure](#configure) · [Use a local model](#use-a-local-model-recommended) ·
+[Quick start](#quick-start) · [Why](#why-bbilingual) · [How it works](#how-it-works) · [Install](#install) · [Configure](#configure) · [Use a local model](#use-a-local-model-recommended) ·
 [Backends](#backends) · [Languages](#languages) · [Appearance](#appearance) · [Fonts](#fonts-for-a-better-look) · [What is and is not translated](#what-is-and-is-not-translated) ·
 [Privacy](#privacy-and-security) · [Limitations](#limitations) · [Troubleshooting](#troubleshooting) ·
 [Development](#development)
@@ -306,8 +356,8 @@ progress bar is translated or ignored depending on the model.
 - **A line break inside a table cell is not possible** in Claude Code: `<br>` and the Unicode line
   separators are drawn literally or ignored. That is why the translation of a table is a second table.
 - **Old messages are not translated.** The hook runs while a reply streams in. When you reopen a
-  conversation with `claude -c` or `--resume`, earlier replies are most likely redrawn from the
-  transcript without it (not verified in every version).
+  conversation with `claude -c` or `--resume`, earlier replies are redrawn from the transcript
+  without it (checked with Claude Code 2.1.289).
 - **Latency.** Each batch of lines appears after its translation is back, usually one to three
   seconds with a small model. A table is translated in one request when it ends.
 - **A weak model can copy the English back** for a whole batch. BBilingual asks once more when most of

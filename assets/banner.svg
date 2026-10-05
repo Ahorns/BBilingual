@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="t d">
+  <title id="t">BBilingual</title>
+  <desc id="d">BBilingual: prompt Claude in English, read the answer in your own language.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="0.55" stop-color="#1a1650"/>
+      <stop offset="1" stop-color="#3b1d6e"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.3" r="0.6">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    .sans { font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, "Noto Sans CJK SC", "Microsoft YaHei", "PingFang SC", sans-serif; }
+  </style>
+  <rect width="1280" height="320" rx="20" fill="url(#bg)"/>
+  <rect width="1280" height="320" rx="20" fill="url(#glow)"/>
+  <circle cx="1180" cy="40" r="150" fill="#c084fc" opacity="0.07"/>
+  <circle cx="1090" cy="300" r="110" fill="#38bdf8" opacity="0.07"/>
+
+  <!-- two speech bubbles: the English one and the translated one -->
+  <g transform="translate(110 72)">
+    <path d="M18 0h120a18 18 0 0 1 18 18v66a18 18 0 0 1-18 18H58l-30 26v-26h-10A18 18 0 0 1 0 84V18A18 18 0 0 1 18 0z" fill="#38bdf8"/>
+    <text x="78" y="64" text-anchor="middle" class="sans" font-size="40" font-weight="800" fill="#06223a">EN</text>
+    <g transform="translate(70 70)">
+      <path d="M18 0h120a18 18 0 0 1 18 18v66a18 18 0 0 1-18 18h-10v26l-30-26H18A18 18 0 0 1 0 84V18A18 18 0 0 1 18 0z" fill="#c084fc" stroke="#1a1650" stroke-width="6"/>
+      <text x="78" y="68" text-anchor="middle" class="sans" font-size="44" font-weight="800" fill="#2b0a4d">文</text>
+    </g>
+  </g>
+
+  <text x="360" y="150" class="sans" font-size="92" font-weight="800" letter-spacing="-1" fill="url(#word)">BBilingual</text>
+  <text x="364" y="204" class="sans" font-size="31" fill="#e2e8f0">Prompt Claude in English. Read the answer in your language.</text>
+  <text x="364" y="250" class="sans" font-size="22" fill="#94a3b8" letter-spacing="0.5">中文  ·  日本語  ·  한국어  ·  Español  ·  Français  ·  Deutsch  ·  Português  ·  Русский  ·  العربية  ·  हिन्दी</text>
+  <text x="364" y="286" class="sans" font-size="17" fill="#64748b" letter-spacing="1">A CLAUDE CODE PLUGIN  ·  DISPLAY-ONLY  ·  ANY BACKEND  ·  LOCAL MODELS WELCOME</text>
+</svg>

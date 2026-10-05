@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="300" viewBox="0 0 1100 300" role="img" aria-labelledby="t d">
+  <title id="t">How BBilingual works</title>
+  <desc id="d">You write in English and Claude answers in English. The MessageDisplay hook sends each line to your translator and your terminal shows the English with the translation under it. The conversation and Claude's context stay English.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/><stop offset="1" stop-color="#1a1650"/>
+    </linearGradient>
+    <linearGradient id="hook" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#94a3b8"/>
+    </marker>
+    <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#c084fc"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif; }
+    .h { font-size: 20px; font-weight: 700; fill: #f1f5f9; }
+    .s { font-size: 14px; fill: #94a3b8; }
+    .lab { font-size: 13px; fill: #94a3b8; }
+    .mono { font-family: "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "Microsoft YaHei", monospace; font-size: 14px; }
+  </style>
+  <rect width="1100" height="300" rx="16" fill="url(#bg)"/>
+
+  <!-- nodes: x = 20 + i * 221, width 176 -->
+  <g>
+    <rect x="20" y="40" width="176" height="110" rx="14" fill="#1e293b" stroke="#334155"/>
+    <text x="108" y="82" text-anchor="middle" class="h">You</text>
+    <text x="108" y="108" text-anchor="middle" class="s">prompt in English</text>
+    <text x="108" y="130" text-anchor="middle" class="s">(plain wording is fine)</text>
+  </g>
+  <g>
+    <rect x="241" y="40" width="176" height="110" rx="14" fill="#1e293b" stroke="#334155"/>
+    <text x="329" y="82" text-anchor="middle" class="h">Claude</text>
+    <text x="329" y="108" text-anchor="middle" class="s">answers in English,</text>
+    <text x="329" y="130" text-anchor="middle" class="s">at its best</text>
+  </g>
+  <g>
+    <rect x="462" y="40" width="176" height="110" rx="14" fill="#1e293b" stroke="url(#hook)" stroke-width="2.5"/>
+    <text x="550" y="82" text-anchor="middle" class="h">BBilingual</text>
+    <text x="550" y="108" text-anchor="middle" class="s">MessageDisplay hook</text>
+    <text x="550" y="130" text-anchor="middle" class="s">line by line, live</text>
+  </g>
+  <g>
+    <rect x="683" y="40" width="176" height="110" rx="14" fill="#1e293b" stroke="#334155"/>
+    <text x="771" y="76" text-anchor="middle" class="h">Translator</text>
+    <text x="771" y="100" text-anchor="middle" class="s">local model (Ollama,</text>
+    <text x="771" y="118" text-anchor="middle" class="s">LM Studio), OpenAI-</text>
+    <text x="771" y="136" text-anchor="middle" class="s">compatible API, DeepL…</text>
+  </g>
+  <g>
+    <rect x="904" y="40" width="176" height="110" rx="14" fill="#0d1117" stroke="#30363d"/>
+    <text x="992" y="68" text-anchor="middle" class="h" style="font-size:16px">Your terminal</text>
+    <text x="920" y="100" class="mono" fill="#e6edf3">Hello, world.</text>
+    <text x="920" y="124" class="mono" fill="#8b949e">你好，世界。</text>
+  </g>
+
+  <!-- arrows -->
+  <line x1="198" y1="95" x2="239" y2="95" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="419" y1="95" x2="460" y2="95" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="640" y1="80" x2="681" y2="80" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="681" y1="112" x2="640" y2="112" stroke="#c084fc" stroke-width="2" marker-end="url(#ar2)"/>
+  <line x1="861" y1="95" x2="902" y2="95" stroke="#94a3b8" stroke-width="2" marker-end="url(#ar)"/>
+  <text x="660" y="68" text-anchor="middle" class="lab" font-size="12">EN</text>
+  <text x="660" y="132" text-anchor="middle" class="lab" fill="#c084fc" style="fill:#c084fc">文</text>
+
+  <!-- brackets -->
+  <path d="M20 172v10h397v-10" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M462 172v10h618v-10" fill="none" stroke="#c084fc" stroke-width="2" stroke-linejoin="round"/>
+  <text x="218" y="214" text-anchor="middle" class="h" style="font-size:18px;fill:#7dd3fc">Stays English</text>
+  <text x="218" y="238" text-anchor="middle" class="s">the conversation, the transcript</text>
+  <text x="218" y="258" text-anchor="middle" class="s">and Claude&#8217;s context are never changed</text>
+  <text x="771" y="214" text-anchor="middle" class="h" style="font-size:18px;fill:#d8b4fe">Display only</text>
+  <text x="771" y="238" text-anchor="middle" class="s">the translation is drawn under each English line;</text>
+  <text x="771" y="258" text-anchor="middle" class="s">Claude never sees it and never writes it</text>
+</svg>

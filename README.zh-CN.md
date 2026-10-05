@@ -1,22 +1,67 @@
-[English](README.md) | **简体中文**
+<p align="center">
+  <img src="assets/banner.svg" alt="BBilingual：用英文向 Claude 提问，用你的语言阅读回答" width="100%">
+</p>
 
-# BBilingual
+<p align="center">
+  <a href="README.md">English</a> ·
+  <b>简体中文</b> ·
+  <a href="docs/translations/README.ja.md">日本語</a> ·
+  <a href="docs/translations/README.ko.md">한국어</a> ·
+  <a href="docs/translations/README.es.md">Español</a> ·
+  <a href="CONTRIBUTING.md#translating-the-readme">添加你的语言</a>
+</p>
 
-[![tests](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml/badge.svg)](https://github.com/Ahorns/BBilingual/actions/workflows/test.yml)
-[![License: MIT](https://img.shields.io/github/license/Ahorns/BBilingual)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/Ahorns/BBilingual?style=social)](https://github.com/Ahorns/BBilingual/stargazers)
+<p align="center">
+  <a href="https://github.com/Ahorns/BBilingual/actions/workflows/test.yml"><img alt="tests" src="https://github.com/Ahorns/BBilingual/actions/workflows/test.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/github/license/Ahorns/BBilingual"></a>
+  <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
+</p>
 
-**用英文和 Claude 协作，效果最好；用你自己的语言阅读，毫无负担。**
+<h3 align="center">用英文和 Claude 协作，效果最好；<br>用你自己的语言阅读，毫无负担。</h3>
 
-BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文：
+<p align="center">
+  <img src="assets/demo.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
+</p>
 
+BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。
+
+<table>
+  <tr>
+    <td width="33%" valign="top"><b>🧠 Claude 保持最佳状态</b><br>它看不到译文，所以它的回答和给英语母语者的一样好。</td>
+    <td width="33%" valign="top"><b>🌍 任意语言</b><br>中文、日语、韩语、西班牙语、法语、阿拉伯语……只要你的翻译器会写。</td>
+    <td width="33%" valign="top"><b>🔒 默认私密</b><br>配置后端之前不会发送任何内容；用本地模型，内容不会离开你的电脑。</td>
+  </tr>
+  <tr>
+    <td valign="top"><b>🧩 自带翻译后端</b><br>Ollama、LM Studio、任何兼容 OpenAI 的 API、DeepL，或你自己的命令。</td>
+    <td valign="top"><b>🧱 懂排版</b><br>代码从不翻译；标题、列表、引用和表格保持原有形态。</td>
+    <td valign="top"><b>🪶 小巧</b><br>一个 hook 文件，只用 Python 标准库，无需构建。</td>
+  </tr>
+</table>
+
+## 快速开始
+
+```bash
+# 1. 安装插件
+claude plugin marketplace add Ahorns/BBilingual
+claude plugin install bbilingual@bbilingual
+
+# 2. 准备一个翻译器，例如本地模型（模型随你选）
+ollama pull YOUR_MODEL
 ```
-● Pruning removes weights that contribute little to the output.
-  剪枝会移除对输出贡献较小的权重。
 
-  - The companion stream protects the other stream.
-    伴随流保护另一条流。
+```jsonc
+// 3. 写进 ~/.claude/settings.json（把 "zh-CN" 改成你的语言，例如 "ja"、"es"、"fr"）
+{
+  "env": {
+    "BBILINGUAL_BACKEND": "openai",
+    "BBILINGUAL_API_BASE": "http://localhost:11434/v1",
+    "BBILINGUAL_MODEL": "YOUR_MODEL",
+    "BBILINGUAL_TARGET": "zh-CN"
+  }
+}
 ```
+
+重新启动一个 `claude`，随便问点什么即可。想用云端 API 或 DeepL？见[翻译后端](#翻译后端)。
 
 ## 为什么需要 BBilingual
 
@@ -24,14 +69,14 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
 
 但是，对英文不太好的人来说，英文回答读起来很吃力。学生、研究人员和工程师读英文很慢，或者要一边查词典，面对满屏密集的技术文字，既累，又容易漏掉细节。让 Claude 直接用你的语言回答，能解决阅读问题，却把 Claude 从它最擅长的语言里拉了出来。于是人们只能在“回答更好”和“读得轻松”之间二选一。
 
-**思路：不必二选一。** Claude 全程用英文工作。BBilingual 只翻译显示在你屏幕上的内容，随着文字逐行出现，逐行翻译：
+| | 用你自己的语言提问 | 用英文提问 | **英文 + BBilingual** |
+|---|:---:|:---:|:---:|
+| Claude 的回答 | 往往稍弱一些 | 最佳水平 | **最佳水平** |
+| 你读起来是否轻松 | ✅ | ❌ 很吃力 | **✅** |
+| 能否对照英文原文 | ❌ | ✅ | **✅** |
+| 消耗的 token | 更多 | 更少 | **更少** |
 
-```
-你（英文提示词）  →  Claude（只用英文）  →  hook  →  翻译器  →  你的终端
-                          │                                       英文 + 你的语言
-                 对话、对话记录
-                 和 Claude 的上下文都保持英文
-```
+**思路：不必二选一。** Claude 全程用英文工作。BBilingual 只翻译显示在你屏幕上的内容，随着文字逐行出现，逐行翻译（示意图见[工作原理](#工作原理)）：
 
 - **Claude 发挥出最佳水平。** 它看不到译文，也从不需要用两种语言写作，所以它给出的回答，和给英语母语者的回答一样。
 - **你用自己的语言阅读**，节奏由你掌控，而英文原文就在每一段译文的正上方。如果某句译文看起来奇怪，原文就在那里，可以随时核对；代码块从不翻译。
@@ -43,6 +88,10 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
 
 ## 工作原理
 
+<p align="center">
+  <img src="assets/how-it-works.svg" alt="你用英文提问，Claude 用英文回答，MessageDisplay hook 把每一行交给翻译器，终端显示英文加你的语言。对话和 Claude 的上下文保持英文。" width="100%">
+</p>
+
 译文**只用于显示**。它通过 Claude Code 的 `MessageDisplay` hook 加入，这个 hook 只改变屏幕上绘制的内容，别无其他。对话记录、对话历史和 Claude 的上下文都保持英文原样，所以 Claude 不会被要求写双语文本，也不会读回你的译文，它的回答和没装插件时完全一样。
 
 - **自带翻译后端**：通过 Ollama 或 LM Studio 使用本地模型（推荐：内容不会离开你的电脑），任何兼容 OpenAI 的 API（OpenAI、OpenRouter、Poe 等），DeepL，或你自己的程序。
@@ -52,7 +101,7 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
 
 ## 目录
 
-[为什么](#为什么需要-bbilingual) · [工作原理](#工作原理) · [安装](#安装) · [配置](#配置) · [使用本地模型](#使用本地模型推荐) ·
+[快速开始](#快速开始) · [为什么](#为什么需要-bbilingual) · [工作原理](#工作原理) · [安装](#安装) · [配置](#配置) · [使用本地模型](#使用本地模型推荐) ·
 [翻译后端](#翻译后端) · [语言](#语言) · [外观](#外观) · [字体](#更好看的字体) · [哪些会翻译](#哪些会被翻译哪些不会) ·
 [隐私](#隐私与安全) · [已知限制](#已知限制) · [故障排查](#故障排查) ·
 [开发](#开发)
@@ -229,7 +278,7 @@ BBILINGUAL_PROMPT_EXTRA="The text is about neuroscience. Translate 'spike' as �
 ## 已知限制
 
 - **Claude Code 里无法在表格单元格内换行：** `<br>` 和 Unicode 行分隔符要么被原样显示，要么被忽略。这就是表格的译文是第二张表格的原因。
-- **旧消息不会被翻译。** hook 只在回复流式输出时运行。用 `claude -c` 或 `--resume` 重新打开一段对话时，之前的回复很可能是直接从对话记录重绘的，不会经过它（并未在所有版本中验证）。
+- **旧消息不会被翻译。** hook 只在回复流式输出时运行。用 `claude -c` 或 `--resume` 重新打开一段对话时，之前的回复是直接从对话记录重绘的，不会经过它（已在 Claude Code 2.1.289 上验证）。
 - **延迟。** 每一批文字要等翻译返回后才会显示，使用小模型通常是一到三秒。表格在结束时用一次请求整体翻译。
 - **较弱的模型可能把英文原样抄回来**，整批都是如此。当一批中大部分内容原样返回时，BBilingual 会再请求一次，但真正的解决办法是换一个更好的模型。
 - **翻译质量取决于你的后端。** 便宜的模型有时会漏译，或者对同一个术语翻译不一致。换更好的模型，或者使用 `BBILINGUAL_PROMPT_EXTRA`，会有帮助。

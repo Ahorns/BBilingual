@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="520" viewBox="0 0 1040 520" role="img" aria-labelledby="t d">
+<title id="t">BBilingual in Claude Code</title>
+<desc id="d">A Claude Code answer in English, with a gray Chinese translation under every line. Code is left untranslated.</desc>
+<style>.sans{font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif}
+.m text{font-family:"Cascadia Mono", "SF Mono", "SFMono-Regular", Menlo, Consolas, "Liberation Mono", "Noto Sans Mono CJK SC", "Microsoft YaHei", "PingFang SC", monospace;font-size:15px;font-weight:400}
+.g{animation-duration:22s;animation-iteration-count:infinite;animation-timing-function:ease-out}
+@media (prefers-reduced-motion: reduce){.g{animation:none!important}}
+#para{animation-name:k_para} @keyframes k_para{0%,9%{opacity:0;transform:translateY(5px)}10.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#c1{animation-name:k_c1} @keyframes k_c1{0%,11%{opacity:0;transform:translateY(5px)}12.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#paraZh{animation-name:k_paraZh} @keyframes k_paraZh{0%,17%{opacity:0;transform:translateY(5px)}18.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#c2{animation-name:k_c2} @keyframes k_c2{0%,19%{opacity:0;transform:translateY(5px)}20.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#head{animation-name:k_head} @keyframes k_head{0%,29%{opacity:0;transform:translateY(5px)}30.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#c3{animation-name:k_c3} @keyframes k_c3{0%,31%{opacity:0;transform:translateY(5px)}32.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#b1{animation-name:k_b1} @keyframes k_b1{0%,39%{opacity:0;transform:translateY(5px)}40.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#b1z{animation-name:k_b1z} @keyframes k_b1z{0%,43%{opacity:0;transform:translateY(5px)}44.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#b2{animation-name:k_b2} @keyframes k_b2{0%,51%{opacity:0;transform:translateY(5px)}52.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#b2z{animation-name:k_b2z} @keyframes k_b2z{0%,55%{opacity:0;transform:translateY(5px)}56.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#code{animation-name:k_code} @keyframes k_code{0%,65%{opacity:0;transform:translateY(5px)}66.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}
+#c4{animation-name:k_c4} @keyframes k_c4{0%,67%{opacity:0;transform:translateY(5px)}68.8%,96%{opacity:1;transform:none}99%,100%{opacity:0}}</style>
+<rect x="0.5" y="0.5" width="1039" height="519" rx="12" fill="#0d1117" stroke="#30363d"/>
+<path d="M0.5 12.5a12 12 0 0 1 12-12h1015a12 12 0 0 1 12 12V44H0.5z" fill="#161b22"/>
+<line x1="0" y1="44.5" x2="1040" y2="44.5" stroke="#30363d"/>
+<circle cx="26" cy="22" r="6.5" fill="#ff5f56"/><circle cx="48" cy="22" r="6.5" fill="#ffbd2e"/><circle cx="70" cy="22" r="6.5" fill="#27c93f"/>
+<text x="520" y="27" text-anchor="middle" class="sans" font-size="13" fill="#8b949e">Claude Code  &#183;  BBilingual</text>
+<g class="m">
+<g><rect x="1" y="62" width="1038" height="34" fill="#161b22"/><text x="28" y="85" fill="#e6edf3"  xml:space="preserve"><tspan fill="#7ee787">&#10095;</tspan> My loss goes unstable after I prune 50% of the weights. What should I try?</text></g>
+<g id="para" class="g"><text x="28" y="134" fill="#e6edf3"  xml:space="preserve">&#9679; Pruning removes the weights that matter least, but the network needs time to</text><text x="28" y="160" fill="#e6edf3"  xml:space="preserve">  recover, so prune a little at a time instead of all at once.</text></g>
+<g id="c1" class="g"><rect x="800" y="117" width="212" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="814" y="135" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; Claude&#8217;s English, untouched</text></g>
+<g id="paraZh" class="g"><text x="28" y="186" fill="#8b949e"  xml:space="preserve">  剪枝会移除最不重要的权重，但网络需要时间恢复，所以最好每次少剪一点，而不是一次剪完。</text></g>
+<g id="c2" class="g"><rect x="800" y="169" width="212" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="814" y="187" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; translation, right under it</text></g>
+<g id="head" class="g"><text x="28" y="234" fill="#e6edf3"  xml:space="preserve">  <tspan font-weight="700">## What to try</tspan><tspan fill="#8b949e"> / </tspan><tspan font-weight="700" fill="#8b949e">可以尝试什么</tspan></text></g>
+<g id="c3" class="g"><rect x="800" y="217" width="212" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="814" y="235" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; headings stay on one line</text></g>
+<g id="b1" class="g"><text x="28" y="280" fill="#e6edf3"  xml:space="preserve">  - Prune in small steps and fine-tune between steps.</text></g>
+<g id="b1z" class="g"><text x="28" y="306" fill="#8b949e"  xml:space="preserve">    分小步剪枝，并在每一步之间进行微调。</text></g>
+<g id="b2" class="g"><text x="28" y="342" fill="#e6edf3"  xml:space="preserve">  - Lower the learning rate after each pruning step.</text></g>
+<g id="b2z" class="g"><text x="28" y="368" fill="#8b949e"  xml:space="preserve">    每次剪枝后降低学习率。</text></g>
+<g id="code" class="g"><rect x="28" y="394" width="744" height="82" rx="6" fill="#161b22" stroke="#30363d"/><text x="44" y="418" fill="#6e7681"  xml:space="preserve">```python</text><text x="44" y="442" fill="#e6edf3"  xml:space="preserve"><tspan fill="#d2a8ff">prune.l1_unstructured</tspan>(layer, <tspan fill="#a5d6ff">"weight"</tspan>, amount=<tspan fill="#79c0ff">0.1</tspan>)</text><text x="44" y="466" fill="#6e7681"  xml:space="preserve">```</text></g>
+<g id="c4" class="g"><rect x="800" y="425" width="212" height="26" rx="13" fill="#1f6feb" fill-opacity="0.16" stroke="#388bfd" stroke-opacity="0.6"/><text x="814" y="443" style='font-family:"Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "PingFang SC", sans-serif;font-size:13px;font-weight:500' fill="#79c0ff">&#8592; code is never translated</text></g>
+</g></svg>

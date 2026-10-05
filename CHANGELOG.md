@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- README: banner, animated demo, how-it-works diagram, feature cards, quick start and a comparison table.
+  Short README pages in Japanese, Korean and Spanish (`docs/translations/`) next to the Chinese one.
 - CJK translations: spaces left inside a line become no-break spaces, so Claude Code no longer breaks the
   line early before a long chunk (code spans are left alone).
 
