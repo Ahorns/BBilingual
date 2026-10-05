@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3 - 2026-10-05
+
+- `/bbinput confirm` is back as an optional mode: it shows the English and asks Send / Cancel before anything is sent.
+  The default is unchanged (`on` sends at once; the public default is `off`).
+
 ## 0.3.2 - 2026-10-05
 
 - `/bbilingual on | off` switches the translation under Claude's replies on or off inside Claude Code, without a

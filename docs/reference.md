@@ -60,7 +60,7 @@ manager instead. Start a new `claude` after changing settings; running sessions 
 | `BBILINGUAL_PROMPT_EXTRA` | Extra instructions for the model: domain, glossary, tone | none |
 | `BBILINGUAL_TEMPERATURE` | Sent only if set (some models reject anything but their default) | not sent |
 | `BBILINGUAL_STYLE` | Colour for the translated text: `dim`, `italic`, `gray`, `cyan`, `green`, `yellow` | plain |
-| `BBILINGUAL_INPUT` | Starting value of [input translation](#write-in-your-own-language): `on` or `off` (`/bbinput` overrides it) | `off` |
+| `BBILINGUAL_INPUT` | Starting value of [input translation](#write-in-your-own-language): `on`, `confirm` or `off` (`/bbinput` overrides it) | `off` |
 | `BBILINGUAL_LOG` | `1` records English/translation pairs locally (see [Privacy](#privacy-and-security)) | off |
 | `BBILINGUAL_DISABLE` | `1` switches the hook off, for one session or for good | off |
 
@@ -163,18 +163,20 @@ across sessions:
 | Command | Effect |
 |---|---|
 | `/bbinput on` | translate and send the English straight away |
+| `/bbinput confirm` | show the English first and ask Send / Cancel (text typed under "Other" is sent instead) |
 | `/bbinput off` | do nothing (the default) |
 | `/bbinput` | show the current setting |
 
-`BBILINGUAL_INPUT` (`on` or `off`) sets the starting value, and `/bbinput` overrides it. There is no pop-up
-and no question: you see your message in the chat as the English that Claude received.
+`BBILINGUAL_INPUT` (`on`, `confirm` or `off`) sets the starting value, and `/bbinput` overrides it. In `on` mode there
+is no pop-up and no question: you see your message in the chat as the English that Claude received.
 
 - **What is translated:** text with letters that are not plain English: Chinese, Japanese, Korean,
   Cyrillic, Arabic, Hebrew, Indic scripts, Thai or accented Latin letters. The model is told to keep
   code, file paths, @-mentions, URLs and technical terms as written.
 - **What is not:** plain English, slash commands (`/...`), shell lines (`!...`) and pastes over 4000
   characters pass through unchanged.
-- **When it fails:** if the translation fails or comes back unchanged, what you typed is sent as it is.
+- **When it fails:** if the translation fails or comes back unchanged, what you typed is sent as it is
+  (in `confirm` mode you are asked first).
 - **Backend:** it needs the `openai` backend (any OpenAI-compatible API or a local model), with the same
   model, key and base URL as the display hook. `deepl` and `command` cannot translate into English here.
 - **Privacy:** what you type is sent to your translator, as Claude's replies are. A [local model](#use-a-local-model-recommended) keeps it on your machine.
@@ -287,7 +289,7 @@ progress bar is translated or ignored depending on the model.
 a backend name. Settings are read when `claude` starts, so open a new session after changing them.
 Run `/plugin` to check that BBILINGUAL is enabled.
 
-**Input is not translated.** Type `/bbinput` to see the setting; it must say `on`. It only
+**Input is not translated.** Type `/bbinput` to see the setting; it must say `on` or `confirm`. It only
 acts on text with non-English letters, needs the `openai` backend, and needs Claude Code 2.1.287 or newer.
 Try the translator by hand: `echo '你好' | python3 scripts/to_english.py`.
 

@@ -44,7 +44,7 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
   <img src="assets/input-demo.zh-CN.svg" alt="你用中文输入问题。BBilingual 把英文译文发给 Claude，对话里显示的也是这句英文。Claude 用英文回答，答案下面有灰色的中文译文。" width="900">
 </p>
 
-用你自己的语言输入就行。BBilingual 把英文发给 Claude，对话里显示的也是这句英文，而你读到的回答仍然是你的语言。它默认关闭，用 `/bbinput on`（或 `BBILINGUAL_INPUT=on`）打开，`/bbinput off` 再次关闭。没有弹窗。需要兼容 OpenAI 的后端和 Claude Code 2.1.287 或更新版本，使用的是 Claude Code 抢先体验的 mods API。你输入的内容会发到你的翻译后端，用本地模型可以保持私密。[详情](docs/reference.zh-CN.md#用自己的语言输入)
+用你自己的语言输入就行。BBilingual 把英文发给 Claude，对话里显示的也是这句英文，而你读到的回答仍然是你的语言。它默认关闭，用 `/bbinput on`（或 `BBILINGUAL_INPUT=on`）打开，`/bbinput off` 再次关闭。没有弹窗；想先检查的话，`/bbinput confirm` 会先显示英文并询问“发送 / 取消”。需要兼容 OpenAI 的后端和 Claude Code 2.1.287 或更新版本，使用的是 Claude Code 抢先体验的 mods API。你输入的内容会发到你的翻译后端，用本地模型可以保持私密。[详情](docs/reference.zh-CN.md#用自己的语言输入)
 
 ## 真实效果
 

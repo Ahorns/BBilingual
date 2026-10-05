@@ -48,7 +48,7 @@ still thinks, writes and remembers in English.
 
 Type in your own language. BBilingual sends Claude the English, the chat shows that English, and you still read
 the answer in your language. It is off until you turn it on with `/bbinput on` (or `BBILINGUAL_INPUT=on`), and
-`/bbinput off` turns it off again. There is no pop-up. It needs an OpenAI-compatible backend and Claude Code
+`/bbinput off` turns it off again. There is no pop-up, but `/bbinput confirm` shows the English and asks Send / Cancel first if you want to check it. It needs an OpenAI-compatible backend and Claude Code
 2.1.287 or newer, and it uses Claude Code's early-access mods API. What you type goes to your translator, so a
 local model keeps it private. [Details](docs/reference.md#write-in-your-own-language)
 
