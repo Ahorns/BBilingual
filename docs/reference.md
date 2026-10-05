@@ -243,12 +243,8 @@ original. If you cannot or do not want to change fonts, nothing else needs to ch
 
 Translated: paragraphs, headings, bullets, numbered items, quotes, table cells that contain words.
 
-Plain-text blocks: a fenced block with no language (or `text`) is treated as plain text, such as a diagram or a
-list of steps. Its lines that read like English sentences (three or more words, no code symbols or flags) are
-translated, each one right under the original and inside the block; the rest of the block is left alone.
-
-Left alone: fenced code blocks with a language tag (` ```python `), lines that are already in the target
-script (CJK targets), table separator rows, cells without words such as numbers, and any line where the translator returns the
+Left alone: fenced code blocks, lines that are already in the target script (CJK targets), table
+separator rows, cells without words such as numbers, and any line where the translator returns the
 original unchanged. The translator itself decides what is worth translating, so a status line or
 progress bar is translated or ignored depending on the model.
 

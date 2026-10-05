@@ -367,35 +367,19 @@ def mostly_cjk(line):
     return cjk > 0 and cjk * 3 >= len(re.findall(r"[A-Za-z]", line))
 
 
-PLAIN_FENCES = ("", "text", "txt", "plain", "plaintext")   # a block with no language is plain text, not code
-CODE_CHARS = set("{}[]()=;<>$|\\`\"'#/&@")
-
-
-def prose_like(line):
-    """A line of a plain-text block that reads like English: three or more words, no code symbols or flags."""
-    return (len(re.findall(r"[A-Za-z]{2,}", line)) >= 3 and not CODE_CHARS.intersection(line)
-            and not any(t.startswith("-") and len(t) > 1 for t in line.split()))
-
-
 def classify(lines, fence):
     """Yield (line, prefix_width, body, fence_after); body is translatable prose or None."""
     for raw in lines:
         line = raw.rstrip("\r\n")
         m = FENCE_RE.match(line)
         if fence:
-            marker, _, plain = fence.partition("|")
-            if m and m.group(1)[0] == marker[0] and len(m.group(1)) >= len(marker) \
+            if m and m.group(1)[0] == fence[0] and len(m.group(1)) >= len(fence) \
                     and line.strip() == m.group(1):
                 fence = None
-                yield line, 0, None, fence
-            elif plain and not mostly_cjk(line) and prose_like(line):   # a plain-text block: translate its sentences
-                yield line, len(line) - len(line.lstrip()), line.strip(), fence
-            else:
-                yield line, 0, None, fence
+            yield line, 0, None, fence
             continue
         if m:
-            info = line.strip()[len(m.group(1)):].strip().lower()
-            fence = m.group(1) + ("|plain" if info in PLAIN_FENCES else "")
+            fence = m.group(1)
             yield line, 0, None, fence
             continue
         if not line.strip() or mostly_cjk(line) or line.lstrip().startswith("|"):

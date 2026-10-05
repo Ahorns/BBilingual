@@ -253,36 +253,6 @@ class CodeFences(unittest.TestCase):
         self.assertLess(time.time() - t0, 3)
 
 
-class PlainTextBlocks(unittest.TestCase):
-    """A code block with no language (or `text`) is plain text: its sentences are translated, its code is not."""
-
-    def test_sentences_in_a_plain_block_are_translated_inside_it(self):
-        out = hook("```\nsame model + same prompt\n  \u2193\nattention can be partitioned differently\n```\n")
-        lines = out.splitlines()
-        self.assertEqual([lines[i] for i in (0, 1, 3, 4, 6)],
-                         ["```", "same model + same prompt", "  \u2193", "attention can be partitioned differently", "```"])
-        self.assertTrue(lines[2].startswith("【译】same"))
-        self.assertTrue(lines[5].startswith("【译】attention"))
-
-    def test_a_text_tag_counts_but_a_language_tag_does_not(self):
-        sentence = "this line reads like an English sentence"
-        self.assertIn("【译】", hook("```text\n%s\n```\n" % sentence))
-        self.assertIsNone(hook("```python\n%s\n```\n" % sentence))
-        self.assertIsNone(hook("```bash\n%s\n```\n" % sentence))
-
-    def test_code_like_lines_in_a_plain_block_are_left_alone(self):
-        out = hook("```\nrm -rf build\ngit commit -m 'fix it now'\nx = f(y) with some words\n$ make all targets\n```\n")
-        self.assertIsNone(out)
-
-    def test_the_open_plain_block_is_remembered_between_batches(self):
-        mid = uuid.uuid4().hex
-        a = hook("Intro line.\n```\nsame model + same prompt\n", mid=mid)
-        b = hook("attention can be partitioned differently\n```\nAfter the block.\n", mid=mid, index=1, final=True)
-        self.assertIn("【译】same", a)
-        self.assertIn("【译】attention", b)
-        self.assertIn("【译】After", b)
-
-
 class Tables(unittest.TestCase):
     ZH_TABLE = ["| 【译】Item | 【译】Cost |", "| --- | --- |", "| 【译】Fast head | 12.5% |"]
 

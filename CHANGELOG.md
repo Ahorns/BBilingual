@@ -1,9 +1,8 @@
 # Changelog
 
-## 0.3.4 - 2026-10-05
+## 0.3.5 - 2026-10-05
 
-- Plain-text blocks are translated: a fenced block with no language (or `text`), such as a diagram, gets a translation
-  under each line that reads like an English sentence. Blocks with a language tag are still never translated.
+- Took back 0.3.4: fenced code blocks are never translated again, whatever their language tag.
 
 ## 0.3.3 - 2026-10-05
 
