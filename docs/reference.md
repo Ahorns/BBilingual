@@ -6,7 +6,7 @@ Everything beyond the [quick start](../README.md#quick-start): installing, every
 models, languages, fonts, privacy, limitations and troubleshooting.
 
 [Install](#install) · [Configure](#configure) · [Use a local model](#use-a-local-model-recommended) · [Backends](#backends) ·
-[Languages](#languages) · [Appearance](#appearance) · [Fonts](#fonts-for-a-better-look) ·
+[Write in your own language](#write-in-your-own-language) · [Languages](#languages) · [Appearance](#appearance) · [Fonts](#fonts-for-a-better-look) ·
 [What is and is not translated](#what-is-and-is-not-translated) · [Privacy](#privacy-and-security) ·
 [Limitations](#limitations) · [Troubleshooting](#troubleshooting) · [Development](#development)
 
@@ -60,6 +60,7 @@ manager instead. Start a new `claude` after changing settings; running sessions 
 | `BBILINGUAL_PROMPT_EXTRA` | Extra instructions for the model: domain, glossary, tone | none |
 | `BBILINGUAL_TEMPERATURE` | Sent only if set (some models reject anything but their default) | not sent |
 | `BBILINGUAL_STYLE` | Colour for the translated text: `dim`, `italic`, `gray`, `cyan`, `green`, `yellow` | plain |
+| `BBILINGUAL_INPUT` | Starting value of [input translation](#write-in-your-own-language): `on`, `confirm` or `off` (`/bbinput` overrides it) | `off` |
 | `BBILINGUAL_LOG` | `1` records English/translation pairs locally (see [Privacy](#privacy-and-security)) | off |
 | `BBILINGUAL_DISABLE` | `1` switches the hook off, for one session or for good | off |
 
@@ -146,6 +147,38 @@ that line untranslated. The environment is inherited, so `BBILINGUAL_TARGET` tel
 language. [`examples/custom_backend.py`](../examples/custom_backend.py) is a complete example that talks
 to a LibreTranslate server.
 
+## Write in your own language
+
+The display hook translates Claude's English into your language. The input feature does the opposite for
+what you type: text that is not plain English is translated into English before Claude receives it, so
+you can write your prompts in your own language. The conversation then shows the English that Claude
+received; your original is not kept there.
+
+It is off until you turn it on. Switch it with the `/bbinput` command, which remembers your choice
+across sessions:
+
+| Command | Effect |
+|---|---|
+| `/bbinput on` | translate and send the English straight away |
+| `/bbinput confirm` | show the English first and ask Send / Cancel (text typed under "Other" is sent instead) |
+| `/bbinput off` | do nothing (the default) |
+| `/bbinput` | show the current setting |
+
+`BBILINGUAL_INPUT` (`on`, `confirm` or `off`) sets the starting value, and `/bbinput` overrides it.
+
+- **What is translated:** text with letters that are not plain English: Chinese, Japanese, Korean,
+  Cyrillic, Arabic, Hebrew, Indic scripts, Thai or accented Latin letters. The model is told to keep
+  code, file paths, @-mentions, URLs and technical terms as written.
+- **What is not:** plain English, slash commands (`/...`), shell lines (`!...`) and pastes over 4000
+  characters pass through unchanged.
+- **When it fails:** if the translation fails or comes back unchanged, what you typed is sent as it is
+  (in `confirm` mode you are asked first).
+- **Backend:** it needs the `openai` backend (any OpenAI-compatible API or a local model), with the same
+  model, key and base URL as the display hook. `deepl` and `command` cannot translate into English here.
+- **Privacy:** what you type is sent to your translator, as Claude's replies are. A [local model](#use-a-local-model-recommended) keeps it on your machine.
+- **Requirements:** Claude Code 2.1.287 or newer. It uses Claude Code's mods API, which Anthropic
+  describes as early access and which may change. The display translation uses the regular hook API.
+
 ## Languages
 
 `BBILINGUAL_TARGET` takes a common code (`fr`, `de`, `es`, `pt`, `it`, `ru`, `ar`, `hi`, `vi`, `th`,
@@ -216,6 +249,8 @@ progress bar is translated or ignored depending on the model.
 - **What is sent, and where.** The text of Claude's replies goes to the backend you configured, and to
   nowhere else. BBILINGUAL has no server, no telemetry and no analytics. A local backend (Ollama, LM
   Studio) keeps everything on your machine; a hosted API receives your text under its own terms.
+- **What you type.** With [input translation](#write-in-your-own-language) on, what you type (when it is not plain
+  English) is also sent to the backend, and nothing else is. It is off by default.
 - **What your replies may contain.** Replies can quote your code, file paths, error messages and
   secrets that Claude read. Choose a backend you trust with that, or better, a [local model](#use-a-local-model-recommended).
 - **Temporary files.** While a message streams, a few small files holding recent text are kept in
@@ -249,6 +284,10 @@ progress bar is translated or ignored depending on the model.
 **Nothing is translated.** In the Claude Code window, run `! echo $BBILINGUAL_BACKEND`. It must print
 a backend name. Settings are read when `claude` starts, so open a new session after changing them.
 Run `/plugin` to check that BBILINGUAL is enabled.
+
+**Input is not translated.** Type `/bbinput` to see the setting; it must say `on` or `confirm`. It only
+acts on text with non-English letters, needs the `openai` backend, and needs Claude Code 2.1.287 or newer.
+Try the translator by hand: `echo '你好' | python3 scripts/to_english.py`.
 
 **Try the hook by hand.** This prints the JSON Claude Code would receive back:
 

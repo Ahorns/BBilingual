@@ -100,6 +100,18 @@ BBilingual 翻译的是 Claude 的回答，不是你输入的内容，所以提�
 
 译文**只用于显示**。它通过 Claude Code 的 `MessageDisplay` hook 加入，只改变屏幕上绘制的内容，别无其他。对话记录和 Claude 的上下文都保持英文，所以 Claude 的回答和没装插件时完全一样。更多细节见[设计说明](docs/how-it-works.md)（英文）。
 
+## 用自己的语言输入（可选）
+
+BBilingual 还能翻译你输入的内容：你用自己的语言写，Claude 收到的是英文。它默认关闭，用 `/bbinput on`（或 `BBILINGUAL_INPUT=on`）打开。然后照常输入：
+
+```
+❯ 为什么剪枝之后要微调？                              ← 你输入的
+❯ Why is fine-tuning necessary after pruning?        ← Claude 收到的，对话里显示的也是这句
+```
+
+- `/bbinput confirm` 会先显示英文并询问再发送，`/bbinput off` 再次关闭。
+- 需要兼容 OpenAI 的后端和 Claude Code 2.1.287 或更新版本，使用的是 Claude Code 抢先体验的 mods API。你输入的内容会发到你的翻译后端，用本地模型可以保持私密。[详情](docs/reference.zh-CN.md#用自己的语言输入)
+
 ## 文档
 
 | | |
@@ -107,7 +119,7 @@ BBilingual 翻译的是 Claude 的回答，不是你输入的内容，所以提�
 | [全部设置](docs/reference.zh-CN.md#配置) | 每一个环境变量 |
 | [本地模型](docs/reference.zh-CN.md#使用本地模型推荐) | 免费、私密、离线 |
 | [翻译后端](docs/reference.zh-CN.md#翻译后端) | 兼容 OpenAI 的 API、DeepL、你自己的命令 |
-| [语言](docs/reference.zh-CN.md#语言) · [外观](docs/reference.zh-CN.md#外观) · [字体](docs/reference.zh-CN.md#更好看的字体) | 任意目标语言、颜色、终端字体 |
+| [用自己的语言输入](docs/reference.zh-CN.md#用自己的语言输入) · [语言](docs/reference.zh-CN.md#语言) · [外观](docs/reference.zh-CN.md#外观) · [字体](docs/reference.zh-CN.md#更好看的字体) | 用自己的语言输入、任意目标语言、颜色、字体 |
 | [隐私](docs/reference.zh-CN.md#隐私与安全) · [已知限制](docs/reference.zh-CN.md#已知限制) · [故障排查](docs/reference.zh-CN.md#故障排查) | 发送了什么、哪些不行、该检查什么 |
 | [参与贡献](CONTRIBUTING.md) · [更新日志](CHANGELOG.md) | 测试、添加语言、版本说明 |
 

@@ -6,11 +6,16 @@
           {
             "type": "command",
             "command": "python3",
-            "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/bilingual.py"],
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/scripts/bilingual.py"
+            ],
             "timeout": 60
           }
         ]
       }
     ]
-  }
+  },
+  "modules": [
+    "./input.js"
+  ]
 }

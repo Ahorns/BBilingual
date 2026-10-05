@@ -1,7 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.3.0 - 2026-10-05
 
+- New, off by default: input translation. Type in your own language and Claude receives English
+  (`/bbinput on | confirm | off`, `BBILINGUAL_INPUT`). It uses Claude Code's mods API (2.1.287 or newer),
+  which is early access, and the `openai` backend. See `docs/reference.md`.
 - README: a short front page; settings, backends, fonts, privacy and troubleshooting moved to
   `docs/reference.md` (and `docs/reference.zh-CN.md`).
 - README: banner, animated demo, a real-session screenshot, how-it-works diagram, feature cards, quick start and a comparison table.

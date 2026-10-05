@@ -25,6 +25,12 @@ python3 -m unittest discover -s tests -v
 The tests start the hook as a subprocess, as Claude Code does. A fake OpenAI-compatible server stands
 in for the network. Please add a test for every behaviour you change, and for every bug you fix.
 
+The input feature (`hooks/input.js`) is tested with Claude Code's own test runner, from the repository root:
+
+```bash
+claude plugin test
+```
+
 To try changes in a real session:
 
 ```bash

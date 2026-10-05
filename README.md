@@ -108,6 +108,21 @@ The translation is **display only**. It is added through Claude Code's `MessageD
 is drawn on screen and nothing else. The transcript and Claude's context stay English, so Claude answers exactly
 as it would without the plugin. More in [how it works](docs/how-it-works.md).
 
+## Write in your own language (optional)
+
+BBilingual can also translate what you type, so you write to Claude in your own language and it receives
+English. It is off until you turn it on with `/bbinput on` (or `BBILINGUAL_INPUT=on`). Then type as usual:
+
+```
+❯ 为什么剪枝之后要微调？                              ← what you type
+❯ Why is fine-tuning necessary after pruning?        ← what Claude receives, and what the chat shows
+```
+
+- `/bbinput confirm` shows the English and asks before sending, and `/bbinput off` turns it off again.
+- It needs an OpenAI-compatible backend and Claude Code 2.1.287 or newer, and it uses Claude Code's
+  early-access mods API. What you type goes to your translator, so a local model keeps it private.
+  [Details](docs/reference.md#write-in-your-own-language)
+
 ## Documentation
 
 | | |
@@ -115,7 +130,7 @@ as it would without the plugin. More in [how it works](docs/how-it-works.md).
 | [All settings](docs/reference.md#configure) | every environment variable |
 | [Local models](docs/reference.md#use-a-local-model-recommended) | free, private and offline |
 | [Backends](docs/reference.md#backends) | OpenAI-compatible APIs, DeepL, your own command |
-| [Languages](docs/reference.md#languages) · [Appearance](docs/reference.md#appearance) · [Fonts](docs/reference.md#fonts-for-a-better-look) | any target language, colours, terminal fonts |
+| [Write in your own language](docs/reference.md#write-in-your-own-language) · [Languages](docs/reference.md#languages) · [Appearance](docs/reference.md#appearance) · [Fonts](docs/reference.md#fonts-for-a-better-look) | typing in your language, any target language, colours, fonts |
 | [Privacy](docs/reference.md#privacy-and-security) · [Limitations](docs/reference.md#limitations) · [Troubleshooting](docs/reference.md#troubleshooting) | what is sent, what does not work, what to check |
 | [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) | tests, adding a language, release notes |
 

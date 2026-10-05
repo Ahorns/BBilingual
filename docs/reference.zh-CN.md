@@ -5,7 +5,7 @@
 快速开始之外的所有内容：安装、全部设置、翻译后端、本地模型、语言、字体、隐私、已知限制和故障排查。
 
 [安装](#安装) · [配置](#配置) · [使用本地模型](#使用本地模型推荐) · [翻译后端](#翻译后端) ·
-[语言](#语言) · [外观](#外观) · [字体](#更好看的字体) · [哪些会翻译](#哪些会被翻译哪些不会) ·
+[用自己的语言输入](#用自己的语言输入) · [语言](#语言) · [外观](#外观) · [字体](#更好看的字体) · [哪些会翻译](#哪些会被翻译哪些不会) ·
 [隐私](#隐私与安全) · [已知限制](#已知限制) · [故障排查](#故障排查) · [开发](#开发)
 
 ## 安装
@@ -53,6 +53,7 @@ claude --plugin-dir /path/to/BBilingual
 | `BBILINGUAL_PROMPT_EXTRA` | 给模型的额外指令：领域、术语表、语气 | 无 |
 | `BBILINGUAL_TEMPERATURE` | 仅在设置时才发送（有些模型不接受默认值以外的值） | 不发送 |
 | `BBILINGUAL_STYLE` | 译文的颜色：`dim`、`italic`、`gray`、`cyan`、`green`、`yellow` | 普通 |
+| `BBILINGUAL_INPUT` | [输入翻译](#用自己的语言输入)的初始值：`on`、`confirm` 或 `off`（`/bbinput` 会覆盖它） | `off` |
 | `BBILINGUAL_LOG` | 设为 `1` 会在本地记录英文与译文对照（见[隐私](#隐私与安全)） | 关闭 |
 | `BBILINGUAL_DISABLE` | 设为 `1` 会关闭这个 hook，可以只对一次会话，也可以永久 | 关闭 |
 
@@ -123,6 +124,28 @@ ollama pull YOUR_MODEL            # 选一个模型，见下文
 
 `BBILINGUAL_CMD` 每行运行一次，最多同时运行 8 个。文本通过标准输入传入；请在标准输出只打印译文，不要有其他内容。命令以非零状态退出或输出为空时，该行保持不翻译。环境变量会被继承，所以你的程序可以通过 `BBILINGUAL_TARGET` 知道目标语言。[`examples/custom_backend.py`](../examples/custom_backend.py) 是一个完整的示例，它会调用 LibreTranslate 服务。
 
+## 用自己的语言输入
+
+显示 hook 把 Claude 的英文翻译成你的语言；输入功能则相反：你输入的、不是纯英文的内容，会在 Claude 收到之前被翻译成英文，所以你可以用自己的语言写提示词。对话里显示的是 Claude 实际收到的英文，你的原文不会保留在那里。
+
+它默认关闭，需要你打开。用 `/bbinput` 命令切换，你的选择会跨会话保留：
+
+| 命令 | 效果 |
+|---|---|
+| `/bbinput on` | 翻译后直接发送英文 |
+| `/bbinput confirm` | 先显示英文并询问“发送 / 取消”（在“其他”里输入的文字会被改为发送这段） |
+| `/bbinput off` | 什么也不做（默认） |
+| `/bbinput` | 显示当前设置 |
+
+`BBILINGUAL_INPUT`（`on`、`confirm` 或 `off`）设置初始值，`/bbinput` 会覆盖它。
+
+- **会翻译什么：** 含有非纯英文字母的文字：中文、日文、韩文、西里尔字母、阿拉伯文、希伯来文、印度系文字、泰文，或带重音的拉丁字母。模型会被告知把代码、文件路径、@ 提及、URL 和技术术语保持原样。
+- **不会翻译什么：** 纯英文、斜杠命令（`/...`）、shell 行（`!...`）以及超过 4000 个字符的粘贴内容，都会原样通过。
+- **失败时：** 如果翻译失败或结果与原文相同，会原样发送你输入的内容（在 `confirm` 模式下会先询问你）。
+- **后端：** 需要 `openai` 后端（任何兼容 OpenAI 的 API 或本地模型），模型、密钥和基础 URL 与显示 hook 相同。`deepl` 和 `command` 在这里不能翻译成英文。
+- **隐私：** 你输入的内容会发送到你的翻译后端，和 Claude 的回复一样。[本地模型](#使用本地模型推荐)可以让它留在你的电脑上。
+- **要求：** Claude Code 2.1.287 或更新版本。它使用 Claude Code 的 mods API，Anthropic 称其为抢先体验功能，以后可能会变化。显示翻译使用的是常规 hook API。
+
 ## 语言
 
 `BBILINGUAL_TARGET` 可以填常见的语言代码（`fr`、`de`、`es`、`pt`、`it`、`ru`、`ar`、`hi`、`vi`、`th`、`id`、`tr`、`nl`、`pl`、`ja`、`ko`、`zh-CN`、`zh-TW`），也可以填你的模型能理解的任何语言名称（例如 `Swedish`）。BBilingual 假定 Claude 使用英文输出。
@@ -171,6 +194,7 @@ BBILINGUAL_PROMPT_EXTRA="The text is about neuroscience. Translate 'spike' as �
 ## 隐私与安全
 
 - **发送了什么，发到哪里。** Claude 回复的文字只会发送到你配置的翻译后端，不会发往其他任何地方。BBilingual 没有服务器、没有遥测、没有数据分析。本地后端（Ollama、LM Studio）会把一切留在你的电脑上；云端 API 则会按它自己的条款接收你的文字。
+- **你输入的内容。** 打开[输入翻译](#用自己的语言输入)后，你输入的内容（不是纯英文时）也会发送到翻译后端，且只发送这些。它默认关闭。
 - **你的回复可能包含什么。** 回复可能引用你的代码、文件路径、报错信息，以及 Claude 读到的机密内容。请选择你信任的翻译后端，或者更好的做法，使用[本地模型](#使用本地模型推荐)。
 - **临时文件。** 在一条消息流式输出期间，会在 `$TMPDIR/bbilingual-<uid>`（权限 0700）里保存几个存放近期文字的小文件，消息结束时删除；遗留的文件会在一小时后清理。
 - **日志默认关闭。** 设置 `BBILINGUAL_LOG=1` 后，每一行译文都会连同原文一起追加到 `~/.cache/bbilingual/log.jsonl`（权限 0600，超过 5 MB 自动轮换）。那是你的对话文字存在磁盘上：用完请删除该文件，也不要把它贴到公开的 issue 里。
@@ -189,6 +213,8 @@ BBILINGUAL_PROMPT_EXTRA="The text is about neuroscience. Translate 'spike' as �
 ## 故障排查
 
 **什么都没有被翻译。** 在 Claude Code 窗口里运行 `! echo $BBILINGUAL_BACKEND`，它必须打印出一个后端名称。设置是在 `claude` 启动时读取的，所以修改后请开启新的会话。运行 `/plugin` 检查 BBilingual 是否已启用。
+
+**输入没有被翻译。** 输入 `/bbinput` 查看设置，它必须显示 `on` 或 `confirm`。它只处理含有非英文字母的文字，需要 `openai` 后端，并且需要 Claude Code 2.1.287 或更新版本。手动试一下翻译器：`echo '你好' | python3 scripts/to_english.py`。
 
 **手动试一下 hook。** 下面的命令会打印 Claude Code 会收到的 JSON 返回值：
 
