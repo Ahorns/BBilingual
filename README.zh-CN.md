@@ -38,6 +38,14 @@ BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在�
   </tr>
 </table>
 
+## 真实效果
+
+<p align="center">
+  <img src="assets/screenshot.png" alt="真实的 Claude Code 会话：英文回答，每一行下面都有灰色的中文译文；Python 代码保持原样" width="900">
+</p>
+
+<p align="center"><sub>截取自真实的 Claude Code 2.1.289 会话（Haiku 4.5 回答，BBilingual 翻译成中文，设置 <code>BBILINGUAL_STYLE=gray</code>），使用 Maple Mono NF CN 字体绘制。</sub></p>
+
 ## 快速开始
 
 ```bash

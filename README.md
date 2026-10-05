@@ -40,6 +40,14 @@ still thinks, writes and remembers in English.
   </tr>
 </table>
 
+## A real session
+
+<p align="center">
+  <img src="assets/screenshot.png" alt="A real Claude Code session: the English answer with a gray Chinese translation under every line; the Python code is left as it is" width="900">
+</p>
+
+<p align="center"><sub>Captured from a real Claude Code 2.1.289 session (Haiku 4.5 answering, BBilingual translating into Chinese with <code>BBILINGUAL_STYLE=gray</code>), drawn in Maple Mono NF CN.</sub></p>
+
 ## Quick start
 
 ```bash
