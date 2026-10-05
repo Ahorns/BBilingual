@@ -20,7 +20,7 @@
 <h3 align="center">最良の結果を得るために Claude とは英語でやり取りし、<br>読むのはすべて母語で。</h3>
 
 <p align="center">
-  <img src="../../assets/demo.svg" alt="英語で答える Claude Code。各行の下に灰色の翻訳が表示され、コードブロックは翻訳されない" width="900">
+  <img src="../../assets/demo.ja.svg" alt="英語で答える Claude Code。各行の下に灰色の翻訳が表示され、コードブロックは翻訳されない" width="900">
 </p>
 
 BBilingual は [Claude Code](https://code.claude.com) のプラグインです。Claude の英語の返答の各行の下に、翻訳をターミナルへリアルタイムで表示します。翻訳は表示専用で、Claude は引き続き英語で考え、書き、記憶します。

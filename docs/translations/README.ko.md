@@ -20,7 +20,7 @@
 <h3 align="center">최상의 결과를 위해 Claude와는 영어로 작업하고,<br>읽는 것은 모두 모국어로.</h3>
 
 <p align="center">
-  <img src="../../assets/demo.svg" alt="영어로 답하는 Claude Code. 모든 줄 아래에 회색 번역이 표시되고 코드 블록은 번역되지 않음" width="900">
+  <img src="../../assets/demo.ko.svg" alt="영어로 답하는 Claude Code. 모든 줄 아래에 회색 번역이 표시되고 코드 블록은 번역되지 않음" width="900">
 </p>
 
 BBilingual은 [Claude Code](https://code.claude.com) 플러그인입니다. Claude가 영어로 답한 모든 줄 아래에 번역을 터미널에 실시간으로 표시합니다. 번역은 화면 표시 전용입니다. Claude는 계속 영어로 생각하고, 쓰고, 기억합니다.

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-labelledby="t">
+  <title id="t">BBilingual: prompt Claude in English, read the answer in your language</title>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/><stop offset="0.55" stop-color="#1a1650"/><stop offset="1" stop-color="#3b1d6e"/>
+    </linearGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.15" cy="0.2" r="0.7">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.22"/><stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <style>
+    .sans { font-family: "Inter", "Segoe UI", system-ui, -apple-system, Arial, "Microsoft YaHei", "Yu Gothic UI", "Malgun Gothic", "PingFang SC", sans-serif; }
+    .mono { font-family: "Cascadia Mono", "SF Mono", Menlo, Consolas, "Liberation Mono", "Microsoft YaHei", "Yu Gothic", "Malgun Gothic", monospace; font-size: 23px; }
+  </style>
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#glow)"/>
+  <circle cx="1190" cy="70" r="190" fill="#c084fc" opacity="0.07"/>
+  <circle cx="1120" cy="600" r="140" fill="#38bdf8" opacity="0.07"/>
+
+  <!-- bubbles -->
+  <g transform="translate(84 62) scale(0.95)">
+    <path d="M18 0h120a18 18 0 0 1 18 18v66a18 18 0 0 1-18 18H58l-30 26v-26h-10A18 18 0 0 1 0 84V18A18 18 0 0 1 18 0z" fill="#38bdf8"/>
+    <text x="78" y="64" text-anchor="middle" class="sans" font-size="40" font-weight="800" fill="#06223a">EN</text>
+    <g transform="translate(70 70)">
+      <path d="M18 0h120a18 18 0 0 1 18 18v66a18 18 0 0 1-18 18h-10v26l-30-26H18A18 18 0 0 1 0 84V18A18 18 0 0 1 18 0z" fill="#c084fc" stroke="#1a1650" stroke-width="6"/>
+      <text x="78" y="68" text-anchor="middle" class="sans" font-size="44" font-weight="800" fill="#2b0a4d">文</text>
+    </g>
+  </g>
+
+  <text x="304" y="150" class="sans" font-size="104" font-weight="800" letter-spacing="-1.5" fill="url(#word)">BBilingual</text>
+  <text x="308" y="210" class="sans" font-size="38" fill="#f1f5f9">Prompt Claude in English.</text>
+  <text x="308" y="258" class="sans" font-size="38" fill="#cbd5e1">Read the answer in your language.</text>
+
+  <!-- terminal card -->
+  <g>
+    <rect x="80" y="316" width="1120" height="288" rx="18" fill="#0d1117" stroke="#30363d" stroke-width="1.5"/>
+    <path d="M80 334a18 18 0 0 1 18-18h1084a18 18 0 0 1 18 18v26H80z" fill="#161b22"/>
+    <line x1="80" y1="360" x2="1200" y2="360" stroke="#30363d"/>
+    <circle cx="108" cy="338" r="7" fill="#ff5f56"/><circle cx="132" cy="338" r="7" fill="#ffbd2e"/><circle cx="156" cy="338" r="7" fill="#27c93f"/>
+    <text x="640" y="343" text-anchor="middle" class="sans" font-size="15" fill="#8b949e">Claude Code  ·  BBilingual</text>
+    <text x="108" y="410" class="mono" fill="#e6edf3"><tspan fill="#e6edf3">●</tspan> Pruning removes the weights that matter least.</text>
+    <text x="108" y="450" class="mono" fill="#8b949e" xml:space="preserve">  剪枝会移除最不重要的权重。</text>
+    <text x="108" y="490" class="mono" fill="#8b949e" xml:space="preserve">  枝刈りは重要度の低い重みを取り除きます。</text>
+    <text x="108" y="530" class="mono" fill="#8b949e" xml:space="preserve">  가지치기는 중요도가 가장 낮은 가중치를 제거합니다.</text>
+    <text x="108" y="570" class="mono" fill="#8b949e" xml:space="preserve">  La poda elimina los pesos que menos importan.</text>
+  </g>
+</svg>

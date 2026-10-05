@@ -20,7 +20,7 @@
 <h3 align="center">Trabaja con Claude en inglés para obtener los mejores resultados<br>y lee todo en tu propio idioma.</h3>
 
 <p align="center">
-  <img src="../../assets/demo.svg" alt="Claude Code respondiendo en inglés, con una traducción en gris debajo de cada línea y el bloque de código sin traducir" width="900">
+  <img src="../../assets/demo.es.svg" alt="Claude Code respondiendo en inglés, con una traducción en gris debajo de cada línea y el bloque de código sin traducir" width="900">
 </p>
 
 BBilingual es un plugin de [Claude Code](https://code.claude.com). Muestra una traducción debajo de cada línea de las respuestas en inglés, en tu terminal y en tiempo real. La traducción es solo visual: Claude sigue pensando, escribiendo y recordando en inglés.

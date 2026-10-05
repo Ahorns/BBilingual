@@ -20,7 +20,7 @@
 <h3 align="center">用英文和 Claude 协作，效果最好；<br>用你自己的语言阅读，毫无负担。</h3>
 
 <p align="center">
-  <img src="assets/demo.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
+  <img src="assets/demo.zh-CN.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
 </p>
 
 BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。
