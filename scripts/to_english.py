@@ -7,7 +7,9 @@ API or local model). Exit status 1 and no output mean "could not translate", so 
 send what you typed instead.
 """
 import os
+import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bilingual as b  # noqa: E402
@@ -32,14 +34,47 @@ def translate(text, chat):
         return None
     return out
 
+# Only the lines that are not English are sent to the model. A model told to translate a whole message tends to
+# drop the English part (a pasted text, a log) and return just the translation of the rest.
+RANGES = [(0xc0, 0xd6), (0xd8, 0xf6), (0xf8, 0x24f), (0x400, 0x4ff), (0x590, 0x6ff), (0x900, 0xdff), (0xe00, 0xe7f),
+          (0x3040, 0x30ff), (0x3400, 0x9fff), (0xac00, 0xd7af)]   # accented Latin, Cyrillic, Arabic, Hebrew, Indic, Thai, CJK
+FOREIGN = re.compile("[%s]" % "".join("%s-%s" % (chr(lo), chr(hi)) for lo, hi in RANGES))
+
+
+def translate_message(text, chat):
+    """`text` with every run of non-English lines translated into English and everything else kept exactly as
+    written; None when nothing was translated."""
+    parts = []                                     # [is_foreign, [lines]] in order
+    for line in text.splitlines(keepends=True):
+        foreign = bool(FOREIGN.search(line))
+        if parts and parts[-1][0] == foreign:
+            parts[-1][1].append(line)
+        else:
+            parts.append([foreign, [line]])
+
+    def one(part):
+        raw = "".join(part[1])
+        body = raw.rstrip("\r\n")
+        try:
+            out = translate(body, chat)
+        except Exception:
+            out = None
+        return raw if out is None else out + raw[len(body):]
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        done = list(pool.map(lambda part: one(part) if part[0] else None, parts))
+    if not any(d is not None and d != "".join(p[1]) for d, p in zip(done, parts)):
+        return None
+    return "".join(d if d is not None else "".join(p[1]) for d, p in zip(done, parts))
+
 
 def main():
-    text = sys.stdin.read().strip()
+    text = sys.stdin.read()
     backend, _problem = b.configure()
-    if not text or backend not in b.LLM_BACKENDS:
+    if not text.strip() or backend not in b.LLM_BACKENDS:
         return 1
     try:
-        out = translate(text, b.LLM_BACKENDS[backend])
+        out = translate_message(text, b.LLM_BACKENDS[backend])
     except Exception:
         return 1
     if not out:

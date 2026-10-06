@@ -184,6 +184,8 @@ is no pop-up and no question: you see your message in the chat as the English th
 - **What is translated:** text with letters that are not plain English: Chinese, Japanese, Korean,
   Cyrillic, Arabic, Hebrew, Indic scripts, Thai or accented Latin letters. The model is told to keep
   code, file paths, @-mentions, URLs and technical terms as written.
+- **Pasted text:** only the lines that are not English are translated. A pasted English text, log or code stays word
+  for word, and the translation of your own Chinese paragraph is put in its place.
 - **What is not:** plain English, slash commands (`/...`), shell lines (`!...`) and pastes over 4000
   characters pass through unchanged.
 - **When it fails:** if the translation fails or comes back unchanged, what you typed is sent as it is

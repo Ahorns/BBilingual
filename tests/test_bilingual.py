@@ -19,7 +19,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SCRIPTS = os.path.join(HERE, "..", "scripts")
 SCRIPT = os.path.join(SCRIPTS, "bilingual.py")
 
-BASE_ENV = {k: v for k, v in os.environ.items() if not k.startswith(("BBILINGUAL_", "POE_", "DEEPL_"))}
+BASE_ENV = {k: v for k, v in os.environ.items() if not k.startswith(("BBILINGUAL_", "POE_", "DEEPL_", "DEEPSEEK_"))}
 BASE_ENV.update(XDG_CACHE_HOME=tempfile.mkdtemp(), TMPDIR=tempfile.mkdtemp())
 LOG_FILE = os.path.join(BASE_ENV["XDG_CACHE_HOME"], "bbilingual", "log.jsonl")
 

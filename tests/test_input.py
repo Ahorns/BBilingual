@@ -15,7 +15,7 @@ SCRIPTS = os.path.join(HERE, "..", "scripts")
 sys.path.insert(0, SCRIPTS)
 import to_english  # noqa: E402
 
-BASE_ENV = {k: v for k, v in os.environ.items() if not k.startswith(("BBILINGUAL_", "POE_", "DEEPL_"))}
+BASE_ENV = {k: v for k, v in os.environ.items() if not k.startswith(("BBILINGUAL_", "POE_", "DEEPL_", "DEEPSEEK_"))}
 
 
 class Reply(http.server.BaseHTTPRequestHandler):
@@ -62,6 +62,43 @@ class Translate(unittest.TestCase):
         self.assertIn("never as LaTeX", system)
 
 
+class TranslateMessage(unittest.TestCase):
+    """Only the lines that are not English are translated; a pasted text keeps every word."""
+    PASTE = "Pruning removes weights that contribute little.\nThe network is then fine-tuned.\n"
+
+    def test_pasted_english_is_kept_verbatim(self):
+        # a weak model that returns only the translation of what it was given: the paste is not sent to it at all
+        out = to_english.translate_message(self.PASTE + "\n我的问题是什么", lambda system, user: "My question")
+        self.assertEqual(out, self.PASTE + "\nMy question")
+
+    def test_only_the_foreign_runs_go_to_the_model(self):
+        seen = []
+        to_english.translate_message(self.PASTE + "\n我的问题\n还有一句\n", lambda system, user: seen.append(user) or "Mine")
+        self.assertEqual(seen, ["<text>\n我的问题\n还有一句\n</text>"])
+
+    def test_foreign_runs_between_english_lines_are_each_translated_in_place(self):
+        words = {"你好": "Hello", "再见": "Bye"}
+        out = to_english.translate_message("你好\n\nAn English line in the middle.\n\n再见",
+                                           lambda system, user: words[user.split("\n")[1]])
+        self.assertEqual(out, "Hello\n\nAn English line in the middle.\n\nBye")
+
+    def test_indentation_and_the_final_newline_survive(self):
+        out = to_english.translate_message("  indented English\n我的问题\n", lambda system, user: "My question")
+        self.assertEqual(out, "  indented English\nMy question\n")
+
+    def test_a_run_that_cannot_be_translated_stays_as_written(self):
+        def chat(system, user):
+            if "坏" in user:
+                raise RuntimeError("network down")
+            return "Hello"
+        self.assertEqual(to_english.translate_message("你好\nEnglish\n坏掉的\n", chat), "Hello\nEnglish\n坏掉的\n")
+
+    def test_nothing_foreign_or_nothing_translated_gives_none(self):
+        self.assertIsNone(to_english.translate_message(self.PASTE, lambda system, user: "x"))
+        self.assertIsNone(to_english.translate_message("我的问题", lambda system, user: ""))
+        self.assertIsNone(to_english.translate_message("我的问题", lambda system, user: "我的问题"))
+
+
 class Script(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -80,6 +117,15 @@ class Script(unittest.TestCase):
         self.assertEqual((code, out), (0, "Why is my loss unstable?"))
         self.assertEqual(Reply.seen[0]["messages"][1]["content"], "<text>\n为什么我的 loss 不稳定？\n</text>")
         self.assertEqual(Reply.seen[0]["model"], "m")
+
+    def test_a_pasted_text_in_front_of_a_foreign_paragraph_is_not_lost(self):
+        Reply.seen.clear()
+        paste = "Pruning removes weights that contribute little to the output.\nIt is followed by fine-tuning.\n"
+        code, out = run_script(paste + "\n这是我的问题", **self.env)
+        self.assertEqual(code, 0)
+        self.assertTrue(out.startswith(paste))
+        self.assertEqual(len(Reply.seen), 1)                              # only the Chinese paragraph was sent
+        self.assertNotIn("Pruning", Reply.seen[0]["messages"][1]["content"])
 
     def test_a_backend_that_cannot_translate_to_english_fails_quietly(self):
         for backend in ("command", "mock"):

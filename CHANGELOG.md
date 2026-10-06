@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.8 - 2026-10-06
+
+- Input translation no longer loses a pasted text. Only the lines that are not English go to the model, and the rest
+  of the message is kept exactly as written. (Some models returned just the translation of the foreign paragraph and
+  dropped the pasted English.)
+- The tests no longer pick up a real `DEEPSEEK_API_KEY` from the environment.
+
 ## 0.3.7 - 2026-10-06
 
 - New `deepseek` backend (a preset of the OpenAI protocol): `BBILINGUAL_BACKEND=deepseek` and `DEEPSEEK_API_KEY` are
