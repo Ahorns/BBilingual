@@ -23,7 +23,7 @@
   <img src="assets/demo.zh-CN.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
 </p>
 
-BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。
+BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。它需要带有 `MessageDisplay` hook 的 Claude Code 和 Python 3.9+（Linux、macOS，或配合 WSL 的 Windows）。
 
 <table>
   <tr>
@@ -77,7 +77,7 @@ ollama pull YOUR_MODEL
 }
 ```
 
-重新启动一个 `claude`，随便问点什么即可。用 `/bbilingual off` 和 `/bbilingual on` 关闭或重新打开译文。需要带有 `MessageDisplay` hook 的 Claude Code 和 Python 3.9+（Linux、macOS 或 WSL）。想用云端 API 或 DeepL？见[翻译后端](docs/reference.zh-CN.md#翻译后端)。
+重新启动一个 `claude`，随便问点什么即可。用 `/bbilingual off` 和 `/bbilingual on` 关闭或重新打开译文。想用云端 API 或 DeepL？见[翻译后端](docs/reference.zh-CN.md#翻译后端)。
 
 ## 为什么需要 BBilingual
 

@@ -10,7 +10,7 @@
 
 ## 安装
 
-环境要求：带有 `MessageDisplay` hook 的 Claude Code 版本（在 2.1.285 到 2.1.289 上测试过）、Python 3.9 或更新版本（只用标准库；在 3.12 上开发，CI 运行 3.9 到 3.12）、Linux、macOS 或 WSL。
+环境要求：带有 `MessageDisplay` hook 的 Claude Code 版本（在 2.1.285 到 2.1.289 上测试过）、Python 3.9 或更新版本（只用标准库；在 3.12 上开发，CI 运行 3.9 到 3.12）、Linux、macOS，或配合 WSL 的 Windows。
 
 ```bash
 claude plugin marketplace add Ahorns/BBilingual

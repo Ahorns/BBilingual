@@ -14,7 +14,7 @@ models, languages, fonts, privacy, limitations and troubleshooting.
 
 Requirements: a Claude Code version that has the `MessageDisplay` hook (tested with 2.1.285 to
 2.1.289), Python 3.9 or newer (standard library only; developed on 3.12, CI runs 3.9 to 3.12),
-Linux, macOS or WSL.
+Linux, macOS, or Windows with WSL.
 
 ```bash
 claude plugin marketplace add Ahorns/BBilingual

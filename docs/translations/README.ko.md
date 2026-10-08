@@ -23,7 +23,7 @@
   <img src="../../assets/demo.ko.svg" alt="영어로 답하는 Claude Code. 모든 줄 아래에 회색 번역이 표시되고 코드 블록은 번역되지 않음" width="900">
 </p>
 
-BBilingual은 [Claude Code](https://code.claude.com) 플러그인입니다. Claude가 영어로 답한 모든 줄 아래에 번역을 터미널에 실시간으로 표시합니다. 번역은 화면 표시 전용입니다. Claude는 계속 영어로 생각하고, 쓰고, 기억합니다.
+BBilingual은 [Claude Code](https://code.claude.com) 플러그인입니다. Claude가 영어로 답한 모든 줄 아래에 번역을 터미널에 실시간으로 표시합니다. 번역은 화면 표시 전용입니다. Claude는 계속 영어로 생각하고, 쓰고, 기억합니다. `MessageDisplay` hook이 있는 Claude Code와 Python 3.9+가 필요합니다(Linux, macOS 또는 WSL을 쓰는 Windows).
 
 ## 왜 BBilingual인가
 

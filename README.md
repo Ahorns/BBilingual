@@ -25,7 +25,8 @@
 
 BBilingual is a [Claude Code](https://code.claude.com) plugin. It shows a translation under every
 English assistant message, in your terminal, in real time. The translation is display only: Claude
-still thinks, writes and remembers in English.
+still thinks, writes and remembers in English. It needs a Claude Code with the `MessageDisplay` hook and Python 3.9+
+(Linux, macOS, or Windows with WSL).
 
 <table>
   <tr>
@@ -83,8 +84,8 @@ ollama pull YOUR_MODEL
 }
 ```
 
-Start a new `claude` and ask anything. Switch the translation off or on with `/bbilingual off` and `/bbilingual on`. You need a Claude Code with the `MessageDisplay` hook and Python 3.9+
-(Linux, macOS or WSL). Prefer a hosted API or DeepL? See [Backends](docs/reference.md#backends).
+Start a new `claude` and ask anything. Switch the translation off or on with `/bbilingual off` and `/bbilingual on`.
+Prefer a hosted API or DeepL? See [Backends](docs/reference.md#backends).
 
 ## Why BBilingual
 
