@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- README: the demo on the English page now rotates through Chinese, Japanese, Korean and Spanish. The Chinese page has a
+  Chinese banner and a Chinese how-it-works diagram, and a plainer tagline.
+
 ## 0.3.8 - 2026-10-06
 
 - Input translation no longer loses a pasted text. Only the lines that are not English go to the model, and the rest

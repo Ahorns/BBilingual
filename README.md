@@ -20,7 +20,7 @@
 <h3 align="center">Work with Claude in English for the best results,<br>and read everything in your own language.</h3>
 
 <p align="center">
-  <img src="assets/demo.svg" alt="Claude Code answering in English, with a gray translation under every line and the code block left untranslated" width="900">
+  <img src="assets/demo.svg" alt="Claude Code answering in English, with a gray translation under every line and the code block left untranslated. The translation rotates through Chinese, Japanese, Korean and Spanish." width="900">
 </p>
 
 BBilingual is a [Claude Code](https://code.claude.com) plugin. It shows a translation under every

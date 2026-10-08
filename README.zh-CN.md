@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="BBilingual：用英文向 Claude 提问，用你的语言阅读回答" width="100%">
+  <img src="assets/banner.zh-CN.svg" alt="BBilingual：用英文和 Claude 协作，用中文阅读它的回答" width="100%">
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
 </p>
 
-<h3 align="center">用英文和 Claude 协作，效果最好；<br>用你自己的语言阅读，毫无负担。</h3>
+<h3 align="center">用英文和 Claude 协作，<br>用中文阅读它的回答。</h3>
 
 <p align="center">
   <img src="assets/demo.zh-CN.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
@@ -103,7 +103,7 @@ BBilingual 翻译的是 Claude 的回答，不是你输入的内容，所以提�
 ## 工作原理
 
 <p align="center">
-  <img src="assets/how-it-works.svg" alt="你用英文提问，Claude 用英文回答，MessageDisplay hook 把每一行交给翻译器，终端显示英文加你的语言。对话和 Claude 的上下文保持英文。" width="100%">
+  <img src="assets/how-it-works.zh-CN.svg" alt="你用英文提问，Claude 用英文回答，MessageDisplay hook 把每一行交给翻译器，终端显示英文加你的语言。对话和 Claude 的上下文保持英文。" width="100%">
 </p>
 
 译文**只用于显示**。它通过 Claude Code 的 `MessageDisplay` hook 加入，只改变屏幕上绘制的内容，别无其他。对话记录和 Claude 的上下文都保持英文，所以 Claude 的回答和没装插件时完全一样。更多细节见[设计说明](docs/how-it-works.md)（英文）。
