@@ -8,7 +8,7 @@
   <a href="README.ja.md">日本語</a> ·
   <a href="README.ko.md">한국어</a> ·
   <b>Español</b> ·
-  <a href="../../CONTRIBUTING.md#translating-the-readme">Añade tu idioma</a>
+  <a href="../../CONTRIBUTING.md#translating-the-readme">Add your language</a>
 </p>
 
 <p align="center">

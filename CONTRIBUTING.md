@@ -47,8 +47,9 @@ After editing a plugin that is installed from a marketplace, bump `version` in
 the English reference, `docs/reference.md`, for the details.
 
 To add a language, copy `docs/translations/README.es.md` and translate it. Set `BBILINGUAL_TARGET` in the
-quick start to your language code, and add the language to the switch line at the top of every README. Say
-in the page whether a person or an AI translated it, and have a native speaker read it if you can.
+quick start to your language code, and add the language to the switch line at the top of every README (before the
+last link, which stays "Add your language" in English on every page). Say in the page whether a person or an AI
+translated it, and have a native speaker read it if you can.
 
 ## Reporting bugs
 

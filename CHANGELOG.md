@@ -3,7 +3,8 @@
 ## Unreleased
 
 - README: the demo on the English page now rotates through Chinese, Japanese, Korean and Spanish. The Chinese page has a
-  Chinese banner and a Chinese how-it-works diagram, and a plainer tagline.
+  Chinese banner and a Chinese how-it-works diagram, and a plainer tagline. The last link in every language switch
+  line is now "Add your language" in English, because it leads to the English contributing guide.
 
 ## 0.3.8 - 2026-10-06
 
