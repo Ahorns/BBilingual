@@ -78,6 +78,15 @@ class Basics(unittest.TestCase):
         out = hook("• Local fix idea: use pruning itself as the stabiliser.\n")
         self.assertEqual(out.splitlines()[1], "  【译】Local\u00a0fix\u00a0idea:\u00a0use\u00a0pruning\u00a0itself\u00a0as\u00a0the\u00a0stabiliser.")
 
+    def test_speaks_utf8_even_when_the_console_code_page_is_not(self):
+        # a native Windows pipe uses the legacy code page (cp1252 here), which cannot hold Chinese
+        env = dict(BASE_ENV, BBILINGUAL_BACKEND="mock", PYTHONIOENCODING="cp1252")
+        raw = json.dumps(event("Naïve “quotes” here.\n"), ensure_ascii=False).encode("utf-8")
+        p = subprocess.run([sys.executable, SCRIPT], input=raw, capture_output=True, env=env)
+        self.assertEqual(p.returncode, 0, p.stderr)
+        out = json.loads(p.stdout.decode("utf-8"))["hookSpecificOutput"]["displayContent"]
+        self.assertIn("【译】Naïve", out)
+
     def test_disable_switch(self):
         self.assertIsNone(hook("hello\n", {"BBILINGUAL_DISABLE": "1"}))
 

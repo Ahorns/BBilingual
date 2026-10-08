@@ -14,7 +14,7 @@ models, languages, fonts, privacy, limitations and troubleshooting.
 
 Requirements: a Claude Code version that has the `MessageDisplay` hook (tested with 2.1.285 to
 2.1.289), Python 3.9 or newer (standard library only; developed on 3.12, CI runs 3.9 to 3.12),
-Linux, macOS, or Windows with WSL.
+Linux, macOS, Windows or WSL.
 
 ```bash
 claude plugin marketplace add Ahorns/BBilingual
@@ -297,7 +297,9 @@ progress bar is translated or ignored depending on the model.
   a batch comes back unchanged, but a better model is the real fix.
 - **Translation quality is your backend's.** Cheap models sometimes leave words untranslated or
   translate a term inconsistently. A better model, or `BBILINGUAL_PROMPT_EXTRA`, helps.
-- Tested on Linux and WSL with Windows Terminal. Native Windows is untested.
+- Tested on Linux and WSL with Windows Terminal. On native Windows the hook runs under Python 3.12 (checked with
+  Chinese output), but `python3` must start Python 3.9+: the Microsoft Store Python provides it, the python.org
+  installer does not.
 
 ## Troubleshooting
 

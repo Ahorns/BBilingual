@@ -74,7 +74,7 @@ QUOTE_RE = re.compile(r"^(\s*>\s?)(.*)$")
 def plugin_version():
     try:
         manifest = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".claude-plugin", "plugin.json")
-        with open(manifest) as f:
+        with open(manifest, encoding="utf-8") as f:
             return json.load(f)["version"]
     except Exception:
         return "?"
@@ -183,7 +183,7 @@ def tr_deepl(text):
 
 
 def tr_command(text):
-    out = subprocess.run(env("BBILINGUAL_CMD"), shell=True, input=text, text=True,
+    out = subprocess.run(env("BBILINGUAL_CMD"), shell=True, input=text, encoding="utf-8",
                          capture_output=True, timeout=BACKEND_TIMEOUT, check=True)
     return out.stdout.strip()
 
@@ -595,6 +595,15 @@ def render(delta, message_id, final, backend, index=0, session_id=""):
     return text if delta.endswith("\n") or not delta else text[:-1]
 
 
+def utf8_stdio():
+    """Claude Code speaks UTF-8; Windows pipes default to the legacy code page and would crash on CJK."""
+    for stream in (sys.stdin, sys.stdout):
+        try:
+            stream.reconfigure(encoding="utf-8")
+        except (AttributeError, ValueError):
+            pass
+
+
 def emit(content):
     print(json.dumps({"hookSpecificOutput": {"hookEventName": "MessageDisplay",
                                              "displayContent": content}}, ensure_ascii=False))
@@ -603,6 +612,7 @@ def emit(content):
 def main():
     if env("BBILINGUAL_DISABLE") == "1":
         return
+    utf8_stdio()
     try:
         event = json.load(sys.stdin)
         delta = event.get("delta") or ""

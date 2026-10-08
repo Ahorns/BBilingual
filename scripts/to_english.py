@@ -69,6 +69,7 @@ def translate_message(text, chat):
 
 
 def main():
+    b.utf8_stdio()
     text = sys.stdin.read()
     backend, _problem = b.configure()
     if not text.strip() or backend not in b.LLM_BACKENDS:

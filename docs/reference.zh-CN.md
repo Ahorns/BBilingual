@@ -10,7 +10,7 @@
 
 ## 安装
 
-环境要求：带有 `MessageDisplay` hook 的 Claude Code 版本（在 2.1.285 到 2.1.289 上测试过）、Python 3.9 或更新版本（只用标准库；在 3.12 上开发，CI 运行 3.9 到 3.12）、Linux、macOS，或配合 WSL 的 Windows。
+环境要求：带有 `MessageDisplay` hook 的 Claude Code 版本（在 2.1.285 到 2.1.289 上测试过）、Python 3.9 或更新版本（只用标准库；在 3.12 上开发，CI 运行 3.9 到 3.12）、Linux、macOS、Windows 或 WSL。
 
 ```bash
 claude plugin marketplace add Ahorns/BBilingual
@@ -216,7 +216,7 @@ BBILINGUAL_PROMPT_EXTRA="The text is about neuroscience. Translate 'spike' as �
 - **延迟。** 每一批文字要等翻译返回后才会显示，使用小模型通常是一到三秒。表格在结束时用一次请求整体翻译。
 - **较弱的模型可能把英文原样抄回来**，整批都是如此。当一批中大部分内容原样返回时，BBilingual 会再请求一次，但真正的解决办法是换一个更好的模型。
 - **翻译质量取决于你的后端。** 便宜的模型有时会漏译，或者对同一个术语翻译不一致。换更好的模型，或者使用 `BBILINGUAL_PROMPT_EXTRA`，会有帮助。
-- 已在 Linux 和 WSL（配合 Windows Terminal）上测试。原生 Windows 未测试。
+- 已在 Linux 和 WSL（配合 Windows Terminal）上测试。在原生 Windows 上，hook 能在 Python 3.12 下运行（用中文输出检查过），但 `python3` 必须能启动 Python 3.9+：微软商店版 Python 带有它，python.org 的安装包没有。
 
 ## 故障排查
 

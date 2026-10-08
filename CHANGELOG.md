@@ -1,8 +1,10 @@
 # Changelog
 
-## Unreleased
+## 0.3.9 - 2026-10-08
 
-- README: the requirements (a Claude Code with the `MessageDisplay` hook, Python 3.9+, Linux, macOS or Windows with WSL)
+- Windows: the hook and `to_english.py` now read and write UTF-8 on stdin and stdout. On native Windows the legacy
+  code page made the hook crash on Chinese, Japanese and other non-Latin output.
+- README: the requirements (a Claude Code with the `MessageDisplay` hook, Python 3.9+, Linux, macOS, Windows or WSL)
   are now stated in the introduction of every language version, instead of at the end of the quick start.
 - The tagline is now "Collaborate with Claude in English, but use your own language", in the banner and as the first
   sentence of every language version of the README.

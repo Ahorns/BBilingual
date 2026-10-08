@@ -26,7 +26,7 @@
 BBilingual is a [Claude Code](https://code.claude.com) plugin. It shows a translation under every
 English assistant message, in your terminal, in real time. The translation is display only: Claude
 still thinks, writes and remembers in English. It needs a Claude Code with the `MessageDisplay` hook and Python 3.9+
-(Linux, macOS, or Windows with WSL).
+(Linux, macOS, Windows or WSL).
 
 <table>
   <tr>

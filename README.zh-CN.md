@@ -23,7 +23,7 @@
   <img src="assets/demo.zh-CN.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
 </p>
 
-BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。它需要带有 `MessageDisplay` hook 的 Claude Code 和 Python 3.9+（Linux、macOS，或配合 WSL 的 Windows）。
+BBilingual 是一个 [Claude Code](https://code.claude.com) 插件。它会在终端里，实时地在 Claude 的每一条英文回复下面显示译文。译文只用于显示：Claude 仍然用英文思考、写作和记忆。它需要带有 `MessageDisplay` hook 的 Claude Code 和 Python 3.9+（Linux、macOS、Windows 或 WSL）。
 
 <table>
   <tr>
