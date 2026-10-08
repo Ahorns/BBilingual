@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner.svg" alt="BBilingual：Claude には英語で頼み、答えは母語で読む" width="100%">
+  <img src="../../assets/banner.svg" alt="BBilingual：Claude とは英語で協働しつつ、やり取りは自分の言語で" width="100%">
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
 </p>
 
-<h3 align="center">最良の結果を得るために Claude とは英語でやり取りし、<br>読むのはすべて母語で。</h3>
+<h3 align="center">Claude とは英語で協働しつつ、<br>やり取りは自分の言語で。</h3>
 
 <p align="center">
   <img src="../../assets/demo.ja.svg" alt="英語で答える Claude Code。各行の下に灰色の翻訳が表示され、コードブロックは翻訳されない" width="900">

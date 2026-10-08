@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../../assets/banner.svg" alt="BBilingual: Claude에게는 영어로 요청하고, 답변은 모국어로 읽기" width="100%">
+  <img src="../../assets/banner.svg" alt="BBilingual: Claude와는 영어로 협업하되, 소통은 내 언어로" width="100%">
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
 </p>
 
-<h3 align="center">최상의 결과를 위해 Claude와는 영어로 작업하고,<br>읽는 것은 모두 모국어로.</h3>
+<h3 align="center">Claude와는 영어로 협업하되,<br>소통은 내 언어로.</h3>
 
 <p align="center">
   <img src="../../assets/demo.ko.svg" alt="영어로 답하는 Claude Code. 모든 줄 아래에 회색 번역이 표시되고 코드 블록은 번역되지 않음" width="900">

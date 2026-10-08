@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.svg" alt="BBilingual: prompt Claude in English, read the answer in your language" width="100%">
+  <img src="assets/banner.svg" alt="BBilingual: collaborate with Claude in English, but use your own language" width="100%">
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
 </p>
 
-<h3 align="center">Work with Claude in English for the best results,<br>and read everything in your own language.</h3>
+<h3 align="center">Collaborate with Claude in English,<br>but use your own language.</h3>
 
 <p align="center">
   <img src="assets/demo.svg" alt="Claude Code answering in English, with a gray translation under every line and the code block left untranslated. The translation rotates through Chinese, Japanese, Korean and Spanish." width="900">

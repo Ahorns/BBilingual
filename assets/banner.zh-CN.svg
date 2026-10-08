@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-labelledby="t d">
-  <title id="t">BBilingual：用英文和 Claude 协作，用中文阅读它的回答</title>
-  <desc id="d">BBilingual：用英文和 Claude 协作，用你的语言阅读它的回答。</desc>
+  <title id="t">BBilingual：用英文和 Claude 协作，但用你自己的语言交流</title>
+  <desc id="d">BBilingual：用英文和 Claude 协作，但用你自己的语言交流。</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#0b1020"/>
@@ -35,7 +35,7 @@
   </g>
 
   <text x="360" y="150" class="sans" font-size="92" font-weight="800" letter-spacing="-1" fill="url(#word)">BBilingual</text>
-  <text x="364" y="204" class="sans" font-size="31" fill="#e2e8f0">用英文和 Claude 协作，用中文阅读它的回答。</text>
+  <text x="364" y="204" class="sans" font-size="31" fill="#e2e8f0">用英文和 Claude 协作，但用你自己的语言交流。</text>
   <text x="364" y="250" class="sans" font-size="22" fill="#94a3b8" letter-spacing="0.5">中文  ·  日本語  ·  한국어  ·  Español  ·  Français  ·  Deutsch  ·  Português  ·  Русский  ·  العربية  ·  हिन्दी</text>
   <text x="364" y="286" class="sans" font-size="17" fill="#64748b" letter-spacing="1">CLAUDE CODE 插件  ·  只改显示  ·  任意后端  ·  欢迎本地模型</text>
 </svg>

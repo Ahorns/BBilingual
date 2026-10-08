@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.zh-CN.svg" alt="BBilingual：用英文和 Claude 协作，用中文阅读它的回答" width="100%">
+  <img src="assets/banner.zh-CN.svg" alt="BBilingual：用英文和 Claude 协作，但用你自己的语言交流" width="100%">
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
   <a href="https://github.com/Ahorns/BBilingual/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/Ahorns/BBilingual?style=social"></a>
 </p>
 
-<h3 align="center">用英文和 Claude 协作，<br>用中文阅读它的回答。</h3>
+<h3 align="center">用英文和 Claude 协作，<br>但用你自己的语言交流。</h3>
 
 <p align="center">
   <img src="assets/demo.zh-CN.svg" alt="Claude Code 用英文回答，每一行下面都有灰色的译文，代码块不翻译" width="900">
