@@ -20,8 +20,6 @@
 const NOT_ENGLISH = /[\u00c0-\u00d6\u00d8-\u00f6\u00f8-\u024f\u0400-\u04ff\u0590-\u06ff\u0900-\u0dff\u0e00-\u0e7f\u3040-\u30ff\u3400-\u9fff\uac00-\ud7af]/
 const MAX_CHARS = 4000
 const MODES = ['on', 'confirm', 'off']
-// English text of prompts typed while Claude is still working: shown above the prompt until the turn ends
-let waiting = []
 const DEFAULT = 'off'
 
 async function currentMode($) {
@@ -108,29 +106,6 @@ export function register(on) {
       if (answer === 'Cancel') return { drop: 'Not sent. You typed: ' + text }
       if (answer !== 'Send') english = answer.trim() || english // typed under "Other": send that instead
     }
-    if (e.turnId) {
-      // typed while Claude was still working: it waits in the queue as typed, so show the English too
-      waiting = [...waiting, english]
-      $.ui.invalidate('ui.render')
-    }
     return next({ ...e, text: english })
-  })
-
-  on('turn.complete', async ($, e, next) => {
-    if (!e.agentId && waiting.length) {
-      waiting = []
-      $.ui.invalidate('ui.render')
-    }
-    return next(e)
-  })
-
-  on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
-    if (!waiting.length || !e.props.isWorking) return next(e)
-    const { Box, Text } = $.ui.resolve(e)
-    const theirs = await next(e)
-    return Box({
-      flexDirection: 'column',
-      children: [theirs, ...waiting.map((text) => Text({ dimColor: true, children: ['Waiting to be sent, as English: ' + text] }))],
-    })
   })
 }

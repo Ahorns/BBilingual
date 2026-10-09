@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.10 - 2026-10-09
+
+- Removed the "Waiting to be sent, as English" line above the prompt. A message typed while Claude is working is
+  still translated at once, and Claude Code's own queue shows what you typed, as before.
+
 ## 0.3.9 - 2026-10-08
 
 - Windows: the hook and `to_english.py` now read and write UTF-8 on stdin and stdout. On native Windows the legacy
